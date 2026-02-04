@@ -1,0 +1,716 @@
+-- Active: 1769668641124@@127.0.0.1@3306
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MD2Word - Markdown转Word在线工具 | 支持LaTeX/Mermaid</title>
+    <meta name="description" content="免费在线Markdown转Word工具，支持LaTeX数学公式、Mermaid图表、代码高亮。纯浏览器处理，无需上传，保护隐私。">
+    <meta name="keywords" content="Markdown转Word,MD转DOCX,LaTeX,Mermaid,AI导出,免费转换工具">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="MD2Word - Markdown转Word在线工具">
+    <meta property="og:description" content="免费在线Markdown转Word工具，支持LaTeX、Mermaid、代码高亮">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="extension/icons/icon128.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --primary-light: rgba(79, 70, 229, 0.1);
+            --secondary: #7c3aed;
+            --success: #10b981;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-dark: #0f172a;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --border: #e2e8f0;
+            --radius: 12px;
+            --radius-lg: 16px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.2s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav a:hover {
+            color: var(--primary);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+
+        /* Main Content */
+        .main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 40px 0 32px;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero p {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 24px;
+        }
+
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            opacity: 0.95;
+        }
+
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Editor Section */
+        .editor-container {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+        }
+
+        .editor-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .editor-tabs {
+            display: flex;
+            gap: 8px;
+        }
+
+        .editor-tab {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+        }
+
+        .editor-tab.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: var(--shadow);
+        }
+
+        .editor-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .editor-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 500px;
+        }
+
+        @media (max-width: 768px) {
+            .editor-body {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .editor-pane {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .editor-pane:first-child {
+            border-right: 1px solid var(--border);
+        }
+
+        .pane-header {
+            padding: 12px 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .editor-textarea {
+            flex: 1;
+            width: 100%;
+            padding: 20px;
+            border: none;
+            outline: none;
+            resize: none;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            line-height: 1.7;
+            background: var(--bg-primary);
+        }
+
+        .preview-area {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            line-height: 1.8;
+        }
+
+        .preview-area h1,
+        .preview-area h2,
+        .preview-area h3 {
+            margin-top: 24px;
+            margin-bottom: 12px;
+        }
+
+        .preview-area h1 {
+            font-size: 28px;
+        }
+
+        .preview-area h2 {
+            font-size: 24px;
+        }
+
+        .preview-area h3 {
+            font-size: 20px;
+        }
+
+        .preview-area p {
+            margin-bottom: 16px;
+        }
+
+        .preview-area code {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            font-size: 13px;
+        }
+
+        .preview-area pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+
+        .preview-area pre code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+
+        .preview-area blockquote {
+            border-left: 4px solid var(--primary);
+            padding-left: 16px;
+            margin: 16px 0;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .preview-area table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+        }
+
+        .preview-area th,
+        .preview-area td {
+            border: 1px solid var(--border);
+            padding: 10px 14px;
+            text-align: left;
+        }
+
+        .preview-area th {
+            background: var(--bg-secondary);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 24px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Examples */
+        .examples {
+            display: flex;
+            gap: 8px;
+        }
+
+        .example-btn {
+            padding: 6px 12px;
+            font-size: 12px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .example-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Loading spinner */
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Drop zone */
+        .drop-zone {
+            border: 2px dashed var(--border);
+            border-radius: var(--radius);
+            padding: 40px;
+            text-align: center;
+            color: var(--text-muted);
+            transition: var(--transition);
+            display: none;
+        }
+
+        .drop-zone.active {
+            display: block;
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .editor-textarea.dragging {
+            opacity: 0.5;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <span>📄</span>
+                MD2Word
+            </a>
+            <nav class="nav">
+                <a href="#examples">示例</a>
+                <a href="https://github.com" target="_blank">GitHub</a>
+                <a href="#" class="btn btn-secondary" id="installExtension">
+                    🔌 安装插件
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>Markdown 转 Word</h1>
+        <p>免费在线转换工具，支持 LaTeX 公式、Mermaid 图表、代码高亮。纯浏览器处理，无需上传。</p>
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">📐</div>
+                <span>LaTeX 公式</span>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📊</div>
+                <span>Mermaid 图表</span>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">💻</div>
+                <span>代码高亮</span>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔒</div>
+                <span>隐私安全</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Editor -->
+    <main class="main">
+        <div class="editor-container">
+            <div class="editor-header">
+                <div class="editor-tabs">
+                    <button class="editor-tab active">编辑器</button>
+                </div>
+                <div class="editor-actions">
+                    <button class="btn btn-secondary" id="clearBtn">清空</button>
+                    <button class="btn btn-primary" id="exportBtn">
+                        ⬇️ 导出 Word
+                    </button>
+                </div>
+            </div>
+
+            <div class="editor-body">
+                <!-- Input Pane -->
+                <div class="editor-pane">
+                    <div class="pane-header">
+                        <span>Markdown 输入</span>
+                        <div class="examples">
+                            <button class="example-btn" data-example="basic">基础示例</button>
+                            <button class="example-btn" data-example="table">表格</button>
+                            <button class="example-btn" data-example="code">代码</button>
+                        </div>
+                    </div>
+                    <textarea id="markdownInput" class="editor-textarea" placeholder="在此输入或粘贴 Markdown 内容...
+
+支持拖拽 .md 文件到此处"></textarea>
+                </div>
+
+                <!-- Preview Pane -->
+                <div class="editor-pane">
+                    <div class="pane-header">
+                        <span>预览</span>
+                    </div>
+                    <div id="previewArea" class="preview-area">
+                        <p style="color: var(--text-muted);">输入内容后将在此显示预览...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>MD2Word - 免费开源的 Markdown 转 Word 工具</p>
+        <p style="margin-top: 8px;">
+            <a href="https://github.com" target="_blank">GitHub</a> ·
+            Made with ❤️
+        </p>
+    </footer>
+
+    <!-- docx.js CDN -->
+    <script src="lib/docx.min.js"></script>
+    <!-- JSZip for modifying DOCX -->
+    <script src="lib/jszip.min.js"></script>
+    <!-- Temml for LaTeX to MathML -->
+    <script src="lib/temml.min.js"></script>
+
+
+    <!-- Optional: Mermaid for diagrams -->
+    <script src="lib/mermaid.min.js"></script>
+    <!-- Optional: HTML to Markdown -->
+    <script src="lib/html-to-md.js"></script>
+
+    <!-- Core Converter Logic -->
+    <script src="lib/converter.js"></script>
+
+    <!-- marked.js for Markdown preview -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <script>
+        // DOM Elements
+        const markdownInput = document.getElementById('markdownInput');
+        const previewArea = document.getElementById('previewArea');
+        const exportBtn = document.getElementById('exportBtn');
+        const clearBtn = document.getElementById('clearBtn');
+
+        // 示例内容
+        const examples = {
+            basic: `# 欢迎使用 MD2Word
+
+这是一个 **Markdown** 转 *Word* 的在线工具。
+
+## 主要特性
+
+- 支持标题、列表、引用
+- 支持 **粗体** 和 *斜体*
+- 支持 \`行内代码\`
+
+> 这是一段引用文字
+> 可以跨越多行
+
+---
+
+感谢使用！`,
+
+            table: `# 表格示例
+
+| 功能 | 支持状态 | 说明 |
+|------|----------|------|
+| 基础 Markdown | ✅ | 标题、列表、引用等 |
+| 表格 | ✅ | GFM 表格语法 |
+| 代码块 | ✅ | 多语言高亮 |
+| LaTeX | ✅ | 数学公式 |`,
+
+            code: `# 代码示例
+
+## JavaScript
+
+\`\`\`javascript
+function greet(name) {
+  console.log(\`Hello, \${name}!\`);
+}
+
+greet('World');
+\`\`\`
+
+## Python
+
+\`\`\`python
+def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+print(fibonacci(10))
+\`\`\``
+        };
+
+        // 实时预览
+        function updatePreview() {
+            const content = markdownInput.value;
+            if (!content.trim()) {
+                previewArea.innerHTML = '<p style="color: var(--text-muted);">输入内容后将在此显示预览...</p>';
+                return;
+            }
+
+            try {
+                previewArea.innerHTML = marked.parse(content);
+            } catch (e) {
+                previewArea.innerHTML = `<p>${content.replace(/</g, '&lt;').replace(/\n/g, '<br>')}</p>`;
+            }
+        }
+
+        markdownInput.addEventListener('input', updatePreview);
+
+        // 示例按钮
+        document.querySelectorAll('.example-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const example = btn.dataset.example;
+                if (examples[example]) {
+                    markdownInput.value = examples[example];
+                    updatePreview();
+                }
+            });
+        });
+
+        // 清空
+        clearBtn.addEventListener('click', () => {
+            markdownInput.value = '';
+            updatePreview();
+        });
+
+        // 拖拽文件
+        markdownInput.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            markdownInput.classList.add('dragging');
+        });
+
+        markdownInput.addEventListener('dragleave', () => {
+            markdownInput.classList.remove('dragging');
+        });
+
+        markdownInput.addEventListener('drop', (e) => {
+            e.preventDefault();
+            markdownInput.classList.remove('dragging');
+
+            const file = e.dataTransfer.files[0];
+            if (file && file.name.endsWith('.md')) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    markdownInput.value = event.target.result;
+                    updatePreview();
+                };
+                reader.readAsText(file);
+            }
+        });
+
+        // 导出Word
+        exportBtn.addEventListener('click', async () => {
+            const content = markdownInput.value.trim();
+            if (!content) {
+                alert('请先输入 Markdown 内容');
+                return;
+            }
+
+            exportBtn.disabled = true;
+            exportBtn.innerHTML = '<div class="spinner"></div> 处理中...';
+
+            try {
+                // 使用 converter.js 中的核心导出函数
+                // 注意：convertAndDownload 是 converter.js 暴露的全局函数
+                // 默认文件名为 MD2Word_日期.docx
+                const date = new Date().toISOString().slice(0, 10);
+                await convertAndDownload(content, `MD2Word_${date}.docx`);
+            } catch (error) {
+                console.error('导出失败:', error);
+                alert('导出失败: ' + error.message);
+            } finally {
+                exportBtn.disabled = false;
+                exportBtn.innerHTML = '⬇️ 导出 Word';
+            }
+        });
+
+        /* 已移除旧的内联函数，现在统一使用 lib/converter.js 中的逻辑 */
+
+
+        // 加载示例
+        markdownInput.value = examples.basic;
+        updatePreview();
+    </script>
+</body>
+
+</html>
