@@ -1,4 +1,4 @@
-# MD2Word - AI对话导出Word工具
+# AiToWords - AI对话无损导出Word工具
 
 将 ChatGPT、Claude 等 AI 对话内容导出为 Word 文档，支持 Markdown、LaTeX 公式、Mermaid 图表、代码高亮。
 

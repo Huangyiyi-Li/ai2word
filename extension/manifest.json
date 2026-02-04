@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "MD2Word - AI对话导出Word",
+    "name": "AiToWords - AI对话导出Word",
     "version": "1.1.0",
     "description": "将ChatGPT、Claude等AI对话导出为Word文档，支持LaTeX公式、Mermaid图表、代码高亮",
     "icons": {

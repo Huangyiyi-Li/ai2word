@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MD2Word - AI对话导出</title>
+    <title>AiToWords - AI对话导出</title>
     <link rel="stylesheet" href="sidepanel.css">
 </head>
 
@@ -14,39 +14,42 @@
         <header class="header">
             <div class="logo">
                 <span class="logo-icon">📄</span>
-                <h1>MD2Word</h1>
+                <h1>AiToWords</h1>
             </div>
-            <button id="refreshBtn" class="icon-btn" title="刷新扫描">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M1 4v6h6M23 20v-6h-6" />
-                    <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15" />
-                </svg>
-            </button>
+            <div style="display:flex; gap:8px;">
+                <button class="icon-btn" onclick="i18n.toggle()" title="中/En">🌐</button>
+                <button id="refreshBtn" class="icon-btn" title="刷新扫描">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 4v6h6M23 20v-6h-6" />
+                        <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15" />
+                    </svg>
+                </button>
+            </div>
         </header>
 
         <!-- 平台状态提示 -->
         <div id="platformStatus" class="platform-status">
             <span class="status-dot"></span>
-            <span class="status-text">等待检测AI平台...</span>
+            <span class="status-text" data-i18n="waitingStatus">等待检测AI平台...</span>
         </div>
 
         <!-- 工具栏 -->
         <div class="toolbar">
             <button id="selectAllBtn" class="btn btn-secondary btn-sm">
-                <span>全选</span>
+                <span data-i18n="selectAll">全选</span>
             </button>
             <button id="selectAssistantBtn" class="btn btn-secondary btn-sm">
-                <span>仅AI回复</span>
+                <span data-i18n="selectAssistant">仅AI回复</span>
             </button>
-            <span class="selected-count" id="selectedCount">已选: 0</span>
+            <span class="selected-count" id="selectedCount" data-i18n="selectedCount">已选: 0</span>
         </div>
 
         <!-- 消息列表 -->
         <div id="messageList" class="message-list">
             <div class="empty-state">
                 <div class="empty-icon">💬</div>
-                <p>打开任意 AI 对话页面</p>
-                <p class="empty-hint">支持 ChatGPT、Claude、DeepSeek、通义千问、文心一言、Kimi</p>
+                <p data-i18n="emptyState">打开任意 AI 对话页面</p>
+                <p class="empty-hint" data-i18n="emptyHint">支持 ChatGPT、Claude、DeepSeek、通义千问、文心一言、Kimi</p>
             </div>
         </div>
 
@@ -58,7 +61,7 @@
                     <polyline points="7,10 12,15 17,10" />
                     <line x1="12" y1="15" x2="12" y2="3" />
                 </svg>
-                <span>导出 Word</span>
+                <span data-i18n="exportBtn">导出 Word</span>
             </button>
         </footer>
     </div>
@@ -73,9 +76,9 @@
             </button>
             <h2>手动输入</h2>
         </div>
-        <textarea id="manualInput" placeholder="粘贴 Markdown 内容..."></textarea>
+        <textarea id="manualInput" data-i18n="manualPlaceholder" placeholder="粘贴 Markdown 内容..."></textarea>
         <button id="manualExportBtn" class="btn btn-primary">
-            <span>导出 Word</span>
+            <span data-i18n="manualExportBtn">导出 Word</span>
         </button>
     </div>
 
@@ -91,7 +94,9 @@
     <script src="../lib/temml.min.js"></script>
     <script src="../lib/jszip.min.js"></script>
     <script src="../lib/mermaid.min.js"></script>
+    <script src="../lib/mermaid.min.js"></script>
     <script src="../lib/html-to-md.js"></script>
+    <script src="../lib/i18n.js"></script>
     <script src="../lib/converter.js"></script>
     <script src="sidepanel.js"></script>
 </body>

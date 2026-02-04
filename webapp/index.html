@@ -1,17 +1,18 @@
--- Active: 1769668641124@@127.0.0.1@3306
 <!DOCTYPE html>
 <html lang="zh-CN">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MD2Word - Markdown转Word在线工具 | 支持LaTeX/Mermaid</title>
-    <meta name="description" content="免费在线Markdown转Word工具，支持LaTeX数学公式、Mermaid图表、代码高亮。纯浏览器处理，无需上传，保护隐私。">
-    <meta name="keywords" content="Markdown转Word,MD转DOCX,LaTeX,Mermaid,AI导出,免费转换工具">
+    <title>AiToWords - 免费AI对话转Word工具 | 支持ChatGPT/DeepSeek导出</title>
+    <meta name="description"
+        content="AiToWords (原MD2Word) 是一款免费在线工具，专为将ChatGPT、DeepSeek、Claude等AI对话内容导出为Word文档设计。完美保留LaTeX公式、Mermaid图表、代码高亮及Markdown格式。隐私安全，纯浏览器端处理。">
+    <meta name="keywords"
+        content="AiToWords,AI对话转Word,ChatGPT导出Word,DeepSeek导出,Markdown转Word,MD转DOCX,LaTeX公式导出,Mermaid转图片,免费转换工具">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="MD2Word - Markdown转Word在线工具">
-    <meta property="og:description" content="免费在线Markdown转Word工具，支持LaTeX、Mermaid、代码高亮">
+    <meta property="og:title" content="AiToWords - AI对话无损导出Word">
+    <meta property="og:description" content="免费将ChatGPT/DeepSeek对话转换为完美Word文档，支持公式与图表">
     <meta property="og:type" content="website">
 
     <!-- Favicon -->
@@ -455,9 +456,11 @@
                 MD2Word
             </a>
             <nav class="nav">
-                <a href="#examples">示例</a>
-                <a href="https://github.com" target="_blank">GitHub</a>
-                <a href="#" class="btn btn-secondary" id="installExtension">
+                <a href="#examples" data-i18n="examples">示例</a>
+                <a href="https://github.com/Huangyiyi-Li/ai2word" target="_blank">GitHub</a>
+                <button class="btn btn-secondary" style="margin-right:8px; padding: 12px;"
+                    onclick="i18n.toggle()">🌐</button>
+                <a href="#" class="btn btn-secondary" id="installExtension" data-i18n="installExt">
                     🔌 安装插件
                 </a>
             </nav>
@@ -466,24 +469,24 @@
 
     <!-- Hero -->
     <section class="hero">
-        <h1>Markdown 转 Word</h1>
-        <p>免费在线转换工具，支持 LaTeX 公式、Mermaid 图表、代码高亮。纯浏览器处理，无需上传。</p>
+        <h1 data-i18n="heroTitle">Markdown 转 Word</h1>
+        <p data-i18n="heroDesc">免费在线转换工具，支持 LaTeX 公式、Mermaid 图表、代码高亮。纯浏览器处理，无需上传。</p>
         <div class="features">
             <div class="feature">
                 <div class="feature-icon">📐</div>
-                <span>LaTeX 公式</span>
+                <span data-i18n="featLatex">LaTeX 公式</span>
             </div>
             <div class="feature">
                 <div class="feature-icon">📊</div>
-                <span>Mermaid 图表</span>
+                <span data-i18n="featMermaid">Mermaid 图表</span>
             </div>
             <div class="feature">
                 <div class="feature-icon">💻</div>
-                <span>代码高亮</span>
+                <span data-i18n="featCode">代码高亮</span>
             </div>
             <div class="feature">
                 <div class="feature-icon">🔒</div>
-                <span>隐私安全</span>
+                <span data-i18n="featPrivacy">隐私安全</span>
             </div>
         </div>
     </section>
@@ -493,11 +496,11 @@
         <div class="editor-container">
             <div class="editor-header">
                 <div class="editor-tabs">
-                    <button class="editor-tab active">编辑器</button>
+                    <button class="editor-tab active" data-i18n="tabEditor">编辑器</button>
                 </div>
                 <div class="editor-actions">
-                    <button class="btn btn-secondary" id="clearBtn">清空</button>
-                    <button class="btn btn-primary" id="exportBtn">
+                    <button class="btn btn-secondary" id="clearBtn" data-i18n="clearBtn">清空</button>
+                    <button class="btn btn-primary" id="exportBtn" data-i18n="exportBtn">
                         ⬇️ 导出 Word
                     </button>
                 </div>
@@ -507,14 +510,14 @@
                 <!-- Input Pane -->
                 <div class="editor-pane">
                     <div class="pane-header">
-                        <span>Markdown 输入</span>
+                        <span data-i18n="inputHeader">Markdown 输入</span>
                         <div class="examples">
                             <button class="example-btn" data-example="basic">基础示例</button>
                             <button class="example-btn" data-example="table">表格</button>
                             <button class="example-btn" data-example="code">代码</button>
                         </div>
                     </div>
-                    <textarea id="markdownInput" class="editor-textarea" placeholder="在此输入或粘贴 Markdown 内容...
+                    <textarea id="markdownInput" class="editor-textarea" data-i18n="placeholder" placeholder="在此输入或粘贴 Markdown 内容...
 
 支持拖拽 .md 文件到此处"></textarea>
                 </div>
@@ -522,10 +525,10 @@
                 <!-- Preview Pane -->
                 <div class="editor-pane">
                     <div class="pane-header">
-                        <span>预览</span>
+                        <span data-i18n="previewHeader">预览</span>
                     </div>
                     <div id="previewArea" class="preview-area">
-                        <p style="color: var(--text-muted);">输入内容后将在此显示预览...</p>
+                        <p style="color: var(--text-muted);" data-i18n="previewHint">输入内容后将在此显示预览...</p>
                     </div>
                 </div>
             </div>
@@ -534,7 +537,7 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <p>MD2Word - 免费开源的 Markdown 转 Word 工具</p>
+        <p data-i18n="footerText">AiToWords - 免费开源的 Markdown 转 Word 工具</p>
         <p style="margin-top: 8px;">
             <a href="https://github.com" target="_blank">GitHub</a> ·
             Made with ❤️
@@ -552,7 +555,11 @@
     <!-- Optional: Mermaid for diagrams -->
     <script src="lib/mermaid.min.js"></script>
     <!-- Optional: HTML to Markdown -->
+    <!-- Html2md -->
     <script src="lib/html-to-md.js"></script>
+
+    <!-- i18n -->
+    <script src="lib/i18n.js"></script>
 
     <!-- Core Converter Logic -->
     <script src="lib/converter.js"></script>
