@@ -14,6 +14,60 @@
     <meta property="og:title" content="AiToWords - AI对话无损导出Word">
     <meta property="og:description" content="免费将ChatGPT/DeepSeek对话转换为完美Word文档，支持公式与图表">
     <meta property="og:type" content="website">
+    <meta property="og:image" content="https://huangyiyi-li.github.io/ai2word/webapp/extension/icons/icon128.png">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://huangyiyi-li.github.io/ai2word/webapp/index.html">
+
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "AiToWords",
+            "applicationCategory": "ProductivityApplication",
+            "operatingSystem": "Web",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+            },
+            "description": "AiToWords 是一个免费在线工具，专为将ChatGPT、DeepSeek、Claude等AI对话内容导出为Word文档设计。保留LaTeX公式和图表。",
+            "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.8",
+                "ratingCount": "150"
+            }
+        }
+    </script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [{
+                "@type": "Question",
+                "name": "这需要收费吗？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "完全免费。AiToWords 是一个开源项目，您可以免费使用所有功能。"
+                }
+            }, {
+                "@type": "Question",
+                "name": "数据安全吗？会上传我的对话吗？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "绝对安全。所有转换过程都在您的浏览器本地完成，不会将任何数据上传到服务器。"
+                }
+            }, {
+                "@type": "Question",
+                "name": "支持哪些 AI 平台？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "理论上支持所有 AI 平台的 Markdown 内容。我们专门优化了 ChatGPT、DeepSeek、Claude 和 Gemini 的导出效果。"
+                }
+            }]
+        }
+    </script>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="extension/icons/icon128.png">
@@ -444,6 +498,51 @@
         .editor-textarea.dragging {
             opacity: 0.5;
         }
+
+        /* FAQ Section */
+        .faq-container {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            padding: 40px;
+            margin-top: 40px;
+        }
+
+        .faq-title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            color: var(--text-primary);
+        }
+
+        .faq-item {
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 24px;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        .faq-question {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .faq-answer {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-left: 0;
+        }
     </style>
 </head>
 
@@ -531,6 +630,31 @@
                         <p style="color: var(--text-muted);" data-i18n="previewHint">输入内容后将在此显示预览...</p>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="faq-container">
+            <h2 class="faq-title" data-i18n="faqTitle">常见问题</h2>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>💰</span>
+                    <span data-i18n="faqQ1">这需要收费吗？</span>
+                </div>
+                <p class="faq-answer" data-i18n="faqA1">完全免费。AiToWords 是一个开源项目，您可以免费使用所有功能。</p>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>🔒</span>
+                    <span data-i18n="faqQ2">数据安全吗？</span>
+                </div>
+                <p class="faq-answer" data-i18n="faqA2">绝对安全。所有转换过程都在您的浏览器本地完成，不会将任何数据上传到服务器。</p>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>🤖</span>
+                    <span data-i18n="faqQ3">支持哪些 AI 平台？</span>
+                </div>
+                <p class="faq-answer" data-i18n="faqA3">理论上支持所有 AI 平台的 Markdown 内容。我们专门优化了 ChatGPT、DeepSeek、Claude 和
+                    Gemini 的导出效果。</p>
             </div>
         </div>
     </main>

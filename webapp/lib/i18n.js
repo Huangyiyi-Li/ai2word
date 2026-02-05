@@ -26,7 +26,14 @@ const i18nData = {
         emptyState: "打开任意 AI 对话页面",
         emptyHint: "支持 ChatGPT、Claude、DeepSeek、通义千问、文心一言、Kimi",
         waitingStatus: "等待检测AI平台...",
-        manualExportBtn: "导出 Word"
+        manualExportBtn: "导出 Word",
+        faqTitle: "常见问题",
+        faqQ1: "这需要收费吗？",
+        faqA1: "完全免费。AiToWords 是一个开源项目，您可以免费使用所有功能。",
+        faqQ2: "数据安全吗？",
+        faqA2: "绝对安全。所有转换过程都在您的浏览器本地完成，不会将任何数据上传到服务器。",
+        faqQ3: "支持哪些 AI 平台？",
+        faqA3: "理论上支持所有 AI 平台的 Markdown 内容。我们专门优化了 ChatGPT、DeepSeek、Claude 和 Gemini 的导出效果。"
     },
     en: {
         title: "AiToWords - AI to Word Export",
@@ -55,7 +62,14 @@ const i18nData = {
         emptyState: "Open any AI Chat Page",
         emptyHint: "Supports ChatGPT, Claude, DeepSeek, Qwen, Ernie Bot, Kimi",
         waitingStatus: "Waiting for AI platform...",
-        manualExportBtn: "Export Word"
+        manualExportBtn: "Export Word",
+        faqTitle: "FAQ",
+        faqQ1: "Is it free?",
+        faqA1: "Completely free. AiToWords is an open-source project.",
+        faqQ2: "Is my data safe?",
+        faqA2: "Absolutely safe. All processing happens locally in your browser. No data is uploaded.",
+        faqQ3: "Which AI platforms are supported?",
+        faqA3: "Theoretically supports all Markdown content. Optimized for ChatGPT, DeepSeek, Claude, and Gemini."
     }
 };
 
