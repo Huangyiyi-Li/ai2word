@@ -21,13 +21,17 @@
      crossorigin="anonymous"></script>
 ```
 
-### 3.2 验证
+### 3.3 ads.txt 配置
 
-- 确认代码位置正确。
-- 确认 `index.html` 无语法错误。
+在 `webapp/` 目录下创建 `ads.txt` 文件，内容如下：
+
+```text
+google.com, pub-4938450453056753, DIRECT, f08c47fec0942fa0
+```
 
 ## 4. 交付物 (Deliverables)
 
 - 修改后的 `webapp/index.html`
+- 新增的 `webapp/ads.txt`
 - 更新后的 `README.md` (如有必要)
 - Git 提交记录

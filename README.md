@@ -38,7 +38,8 @@
 │   ├── lib/             # 转换库
 │   └── icons/           # 图标
 ├── webapp/              # 独立网页版
-│   └── index.html       # 单文件应用
+│   ├── index.html       # 单文件应用
+│   └── ads.txt          # AdSense 授权文件
 └── PRD/                 # 产品文档
 ```
 
