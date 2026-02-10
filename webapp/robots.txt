@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://huangyiyi-li.github.io/ai2word/webapp/sitemap.xml
+Sitemap: https://www.aitowords.com/sitemap.xml
