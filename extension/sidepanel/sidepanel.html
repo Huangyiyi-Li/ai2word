@@ -18,6 +18,7 @@
             </div>
             <div style="display:flex; gap:8px;">
                 <button class="icon-btn" onclick="i18n.toggle()" title="中/En">🌐</button>
+                <button id="settingsBtn" class="icon-btn" title="设置">⚙️</button>
                 <button id="refreshBtn" class="icon-btn" title="刷新扫描">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M1 4v6h6M23 20v-6h-6" />
@@ -89,6 +90,87 @@
             <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
         </svg>
     </button>
+
+    <!-- 设置面板 -->
+    <div id="settingsPanel" class="settings-panel hidden">
+        <div class="settings-header">
+            <button id="backFromSettingsBtn" class="icon-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15,18 9,12 15,6" />
+                </svg>
+            </button>
+            <h2>⚙️ 设置</h2>
+        </div>
+
+        <!-- 网站权限管理 -->
+        <div class="settings-section">
+            <h3 class="settings-section-title">🌐 支持的网站</h3>
+            <p class="settings-hint">管理插件可访问的 AI 对话网站</p>
+            <div class="host-input-row">
+                <input type="text" id="hostInput" class="host-input" placeholder="输入网站域名，如 example.com">
+                <button id="addHostBtn" class="btn btn-sm btn-primary">添加</button>
+            </div>
+            <button id="addCurrentPageBtn" class="btn btn-secondary btn-sm" style="width:100%; margin-top:8px;">
+                📌 添加当前页面
+            </button>
+            <div id="hostList" class="host-list"></div>
+        </div>
+
+        <!-- 转换设置 -->
+        <div class="settings-section">
+            <h3 class="settings-section-title">📝 导出设置</h3>
+            <div class="setting-item">
+                <div class="setting-label">
+                    <span>保留标题内联样式</span>
+                    <span class="setting-desc">标题中的粗体/斜体等样式同步到 Word</span>
+                </div>
+                <label class="toggle">
+                    <input type="checkbox" id="settingPreserveHeadingStyle" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div class="setting-item">
+                <div class="setting-label">
+                    <span>保留粗体格式</span>
+                    <span class="setting-desc">Markdown **粗体** 同步到 Word</span>
+                </div>
+                <label class="toggle">
+                    <input type="checkbox" id="settingPreserveBold" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div class="setting-item">
+                <div class="setting-label">
+                    <span>保留斜体格式</span>
+                    <span class="setting-desc">Markdown *斜体* 同步到 Word</span>
+                </div>
+                <label class="toggle">
+                    <input type="checkbox" id="settingPreserveItalic" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div class="setting-item">
+                <div class="setting-label">
+                    <span>去除多余空格</span>
+                    <span class="setting-desc">去除 AI 生成内容中标点前的多余空格</span>
+                </div>
+                <label class="toggle">
+                    <input type="checkbox" id="settingRemoveExtraSpaces">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div class="setting-item">
+                <div class="setting-label">
+                    <span>引用块使用斜体</span>
+                    <span class="setting-desc">blockquote 在 Word 中以斜体显示</span>
+                </div>
+                <label class="toggle">
+                    <input type="checkbox" id="settingBlockquoteItalic" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+        </div>
+    </div>
 
     <script src="../lib/docx.min.js"></script>
     <script src="../lib/temml.min.js"></script>

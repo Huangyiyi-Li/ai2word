@@ -22,13 +22,29 @@ const elements = {
     manualMode: document.getElementById('manualMode'),
     manualInput: document.getElementById('manualInput'),
     manualExportBtn: document.getElementById('manualExportBtn'),
-    backToListBtn: document.getElementById('backToListBtn')
+    backToListBtn: document.getElementById('backToListBtn'),
+    // 设置面板
+    settingsBtn: document.getElementById('settingsBtn'),
+    settingsPanel: document.getElementById('settingsPanel'),
+    backFromSettingsBtn: document.getElementById('backFromSettingsBtn'),
+    hostInput: document.getElementById('hostInput'),
+    addHostBtn: document.getElementById('addHostBtn'),
+    addCurrentPageBtn: document.getElementById('addCurrentPageBtn'),
+    hostList: document.getElementById('hostList'),
+    // 设置开关
+    settingPreserveHeadingStyle: document.getElementById('settingPreserveHeadingStyle'),
+    settingPreserveBold: document.getElementById('settingPreserveBold'),
+    settingPreserveItalic: document.getElementById('settingPreserveItalic'),
+    settingRemoveExtraSpaces: document.getElementById('settingRemoveExtraSpaces'),
+    settingBlockquoteItalic: document.getElementById('settingBlockquoteItalic')
 };
 
 // 初始化
 function init() {
     console.log('%c[MD2Word Sidepanel] init() 初始化开始', 'color: blue; font-weight: bold;');
     bindEvents();
+    loadSettings();
+    loadHosts();
     requestMessages();
 }
 
@@ -41,6 +57,23 @@ function bindEvents() {
     elements.switchModeBtn.addEventListener('click', toggleManualMode);
     elements.backToListBtn.addEventListener('click', toggleManualMode);
     elements.manualExportBtn.addEventListener('click', exportManual);
+
+    // 设置面板事件
+    elements.settingsBtn.addEventListener('click', () => toggleSettingsPanel(true));
+    elements.backFromSettingsBtn.addEventListener('click', () => toggleSettingsPanel(false));
+    elements.addHostBtn.addEventListener('click', addHost);
+    elements.addCurrentPageBtn.addEventListener('click', addCurrentPageHost);
+    elements.hostInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') addHost(); });
+
+    // 设置开关变更事件
+    const settingCheckboxes = [
+        'settingPreserveHeadingStyle', 'settingPreserveBold',
+        'settingPreserveItalic', 'settingRemoveExtraSpaces', 'settingBlockquoteItalic'
+    ];
+    settingCheckboxes.forEach(id => {
+        const el = elements[id];
+        if (el) el.addEventListener('change', saveSettings);
+    });
 
     // 监听来自background的消息
     chrome.runtime.onMessage.addListener((message) => {
@@ -272,3 +305,131 @@ function formatDate() {
 
 // 启动
 init();
+
+// ============== 设置面板逻辑 ==============
+
+// 默认支持的域名（内置，不可删除）
+const BUILTIN_HOSTS = [
+    'chat.openai.com', 'chatgpt.com', 'claude.ai',
+    'chat.deepseek.com', 'tongyi.aliyun.com', 'yiyan.baidu.com',
+    'gemini.google.com', 'kimi.moonshot.cn', 'monica.im'
+];
+
+function toggleSettingsPanel(show) {
+    elements.settingsPanel.classList.toggle('hidden', !show);
+}
+
+// Host管理
+function loadHosts() {
+    chrome.storage.sync.get(['customHosts'], (result) => {
+        const customHosts = result.customHosts || [];
+        renderHostList(customHosts);
+    });
+}
+
+function renderHostList(customHosts) {
+    const allHosts = [...BUILTIN_HOSTS.map(h => ({ name: h, builtin: true })),
+    ...customHosts.map(h => ({ name: h, builtin: false }))];
+    elements.hostList.innerHTML = allHosts.map(h => `
+        <div class="host-item">
+            <div>
+                <span class="host-name">${h.name}</span>
+                ${h.builtin ? '<span class="host-badge">内置</span>' : ''}
+            </div>
+            ${!h.builtin ? `<button class="host-remove" data-host="${h.name}" title="删除">×</button>` : ''}
+        </div>
+    `).join('');
+
+    // 绑定删除事件
+    elements.hostList.querySelectorAll('.host-remove').forEach(btn => {
+        btn.addEventListener('click', () => removeHost(btn.dataset.host));
+    });
+}
+
+function addHost() {
+    let host = elements.hostInput.value.trim();
+    if (!host) return;
+
+    // 处理输入：去除协议前缀和路径
+    host = host.replace(/^https?:\/\//, '').replace(/\/.*$/, '');
+
+    if (BUILTIN_HOSTS.includes(host)) {
+        alert('该网站已是内置支持的网站');
+        return;
+    }
+
+    chrome.storage.sync.get(['customHosts'], (result) => {
+        const customHosts = result.customHosts || [];
+        if (customHosts.includes(host)) {
+            alert('该网站已添加');
+            return;
+        }
+        customHosts.push(host);
+        chrome.storage.sync.set({ customHosts }, () => {
+            elements.hostInput.value = '';
+            renderHostList(customHosts);
+        });
+    });
+}
+
+function removeHost(host) {
+    chrome.storage.sync.get(['customHosts'], (result) => {
+        const customHosts = (result.customHosts || []).filter(h => h !== host);
+        chrome.storage.sync.set({ customHosts }, () => {
+            renderHostList(customHosts);
+        });
+    });
+}
+
+function addCurrentPageHost() {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        if (tabs[0] && tabs[0].url) {
+            try {
+                const url = new URL(tabs[0].url);
+                elements.hostInput.value = url.hostname;
+                addHost();
+            } catch (e) {
+                alert('无法解析当前页面地址');
+            }
+        } else {
+            alert('无法获取当前页面信息');
+        }
+    });
+}
+
+// 转换设置
+function loadSettings() {
+    chrome.storage.sync.get(['convertSettings'], (result) => {
+        const settings = result.convertSettings || {};
+        const defaults = window.DEFAULT_SETTINGS || {};
+        const merged = { ...defaults, ...settings };
+
+        if (elements.settingPreserveHeadingStyle) elements.settingPreserveHeadingStyle.checked = merged.preserveHeadingStyle;
+        if (elements.settingPreserveBold) elements.settingPreserveBold.checked = merged.preserveBold;
+        if (elements.settingPreserveItalic) elements.settingPreserveItalic.checked = merged.preserveItalic;
+        if (elements.settingRemoveExtraSpaces) elements.settingRemoveExtraSpaces.checked = merged.removeExtraSpaces;
+        if (elements.settingBlockquoteItalic) elements.settingBlockquoteItalic.checked = merged.blockquoteItalic;
+
+        // 同步到 converter.js 全局变量
+        window._convertSettings = merged;
+    });
+}
+
+function saveSettings() {
+    const settings = {
+        preserveHeadingStyle: elements.settingPreserveHeadingStyle?.checked ?? true,
+        preserveBold: elements.settingPreserveBold?.checked ?? true,
+        preserveItalic: elements.settingPreserveItalic?.checked ?? true,
+        removeExtraSpaces: elements.settingRemoveExtraSpaces?.checked ?? false,
+        blockquoteItalic: elements.settingBlockquoteItalic?.checked ?? true,
+        blockquoteColor: elements.settingBlockquoteItalic?.checked ? '666666' : ''
+    };
+
+    chrome.storage.sync.set({ convertSettings: settings });
+
+    // 同步到 converter.js
+    window._convertSettings = settings;
+    if (window.saveConvertSettings) {
+        window.saveConvertSettings(settings);
+    }
+}

@@ -54,9 +54,11 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
       'chat.deepseek.com',
       'tongyi.aliyun.com',
       'yiyan.baidu.com',
-      'kimi.moonshot.cn'
+      'gemini.google.com',
+      'kimi.moonshot.cn',
+      'monica.im'
     ];
-    
+
     const isSupported = supportedDomains.some(domain => tab.url.includes(domain));
     if (isSupported) {
       chrome.runtime.sendMessage({ type: 'TAB_UPDATED', url: tab.url });

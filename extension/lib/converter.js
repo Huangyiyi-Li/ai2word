@@ -7,6 +7,56 @@ console.log('%c[MD2Word] Converter v2.0 - Latex Fixes Loaded', 'background: #222
 let xslStylesheet = null;  // 缓存XSL样式表
 let mathCounter = 0;       // 公式计数器
 
+// ============== 个性化设置系统 ==============
+const DEFAULT_SETTINGS = {
+    preserveHeadingStyle: true,   // 是否在 Word 中保留 Markdown 标题样式（粗体/斜体等）
+    preserveItalic: true,         // 是否保留斜体格式
+    preserveBold: true,           // 是否保留粗体格式
+    removeExtraSpaces: false,     // 是否去除标点符号前的多余空格
+    blockquoteItalic: true,       // 引用块是否使用斜体
+    blockquoteColor: '666666'     // 引用块文字颜色（空字符串表示使用默认颜色）
+};
+
+function getConvertSettings() {
+    // 优先从全局变量读取（插件侧边栏和 webapp 均可设置）
+    if (window._convertSettings) {
+        return { ...DEFAULT_SETTINGS, ...window._convertSettings };
+    }
+    // 其次从 localStorage 读取
+    try {
+        const stored = localStorage.getItem('aitowords_settings');
+        if (stored) {
+            return { ...DEFAULT_SETTINGS, ...JSON.parse(stored) };
+        }
+    } catch (e) {
+        console.warn('[MD2Word] 读取设置失败:', e);
+    }
+    return { ...DEFAULT_SETTINGS };
+}
+
+function saveConvertSettings(settings) {
+    window._convertSettings = { ...DEFAULT_SETTINGS, ...settings };
+    try {
+        localStorage.setItem('aitowords_settings', JSON.stringify(window._convertSettings));
+    } catch (e) {
+        console.warn('[MD2Word] 保存设置失败:', e);
+    }
+}
+
+// 去除中文/英文标点符号前的多余空格
+function cleanExtraSpaces(text) {
+    // 匹配中文标点前的空格: " ，"  " 。"  " ："  " ；"  " ！"  " ？"  " 、" 等
+    let cleaned = text.replace(/\s+([，。：；！？、）》」』】〉〗〕\)\]\}>])/g, '$1');
+    // 匹配英文标点前的空格（仅紧邻的）: " ,"  " ."  " ;"  " :" 等
+    cleaned = cleaned.replace(/\s+([,\.;:!?])(?=\s|$|[^a-zA-Z0-9])/g, '$1');
+    return cleaned;
+}
+
+// 导出设置函数供全局使用
+window.getConvertSettings = getConvertSettings;
+window.saveConvertSettings = saveConvertSettings;
+window.DEFAULT_SETTINGS = DEFAULT_SETTINGS;
+
 // ============== LaTeX公式处理 ==============
 
 // 修复不完整的LaTeX（如缺少\begin{cases}等）
@@ -820,15 +870,21 @@ async function parseInlineContent(text, docx) {
     return runs.length > 0 ? runs : [new TextRun({ text })];
 }
 
-function parseTextStyles(text, docx) {
+function parseTextStyles(text, docx, overrideSettings) {
     const { TextRun, ExternalHyperlink } = docx;
     const runs = [];
+    const settings = overrideSettings || getConvertSettings();
+
+    // 预处理：去除多余空格
+    if (settings.removeExtraSpaces) {
+        text = cleanExtraSpaces(text);
+    }
 
     // 定义样式正则映射
     const styles = [
         { type: 'link', regex: /\[(.+?)\]\((.+?)\)/ },
-        { type: 'bold', regex: /\*\*(.+?)\*\*/ },
-        { type: 'italic', regex: /\*(.+?)\*/ },
+        ...(settings.preserveBold ? [{ type: 'bold', regex: /\*\*(.+?)\*\*/ }] : [{ type: 'stripBold', regex: /\*\*(.+?)\*\*/ }]),
+        ...(settings.preserveItalic ? [{ type: 'italic', regex: /(?<!\*)\*([^*]+?)\*(?!\*)/ }] : [{ type: 'stripItalic', regex: /(?<!\*)\*([^*]+?)\*(?!\*)/ }]),
         { type: 'strike', regex: /~~(.+?)~~/ },
         { type: 'code', regex: /`(.+?)`/ }
     ];
@@ -870,6 +926,10 @@ function parseTextStyles(text, docx) {
                     link: url,
                     children: children
                 }));
+            } else if (styleType === 'stripBold' || styleType === 'stripItalic') {
+                // 用户选择不保留该样式，仅提取文本内容，不添加样式
+                const content = earliestMatch[1];
+                process(content, currentStyles);
             } else {
                 const content = earliestMatch[1];
                 const nextStyles = { ...currentStyles };
@@ -1023,35 +1083,66 @@ async function convertAndDownload(content, filename) {
     // 构建文档段落
     const children = [];
 
+    const settings = getConvertSettings();
+
     for (const el of elements) {
         switch (el.type) {
             case 'heading':
-                children.push(new Paragraph({
-                    text: el.content,
-                    heading: [
-                        HeadingLevel.HEADING_1,
-                        HeadingLevel.HEADING_2,
-                        HeadingLevel.HEADING_3,
-                        HeadingLevel.HEADING_4,
-                        HeadingLevel.HEADING_5,
-                        HeadingLevel.HEADING_6
-                    ][el.level - 1],
-                    spacing: { before: 240, after: 120 }
-                }));
+                // 处理标题中可能包含的 Markdown 内联样式（如 **粗体**、*斜体* 等）
+                const headingContent = settings.removeExtraSpaces ? cleanExtraSpaces(el.content) : el.content;
+                const headingHasStyle = /\*\*|\*|~~|`|\[.+?\]\(.+?\)/.test(headingContent);
+                if (headingHasStyle && settings.preserveHeadingStyle) {
+                    // 解析内联样式
+                    children.push(new Paragraph({
+                        children: parseTextStyles(headingContent, docxLib, settings),
+                        heading: [
+                            HeadingLevel.HEADING_1,
+                            HeadingLevel.HEADING_2,
+                            HeadingLevel.HEADING_3,
+                            HeadingLevel.HEADING_4,
+                            HeadingLevel.HEADING_5,
+                            HeadingLevel.HEADING_6
+                        ][el.level - 1],
+                        spacing: { before: 240, after: 120 }
+                    }));
+                } else {
+                    // 纯文本标题（去除 Markdown 标记）
+                    const cleanTitle = headingContent
+                        .replace(/\*\*(.+?)\*\*/g, '$1')
+                        .replace(/\*(.+?)\*/g, '$1')
+                        .replace(/~~(.+?)~~/g, '$1')
+                        .replace(/`(.+?)`/g, '$1')
+                        .replace(/\[(.+?)\]\(.+?\)/g, '$1');
+                    children.push(new Paragraph({
+                        text: cleanTitle,
+                        heading: [
+                            HeadingLevel.HEADING_1,
+                            HeadingLevel.HEADING_2,
+                            HeadingLevel.HEADING_3,
+                            HeadingLevel.HEADING_4,
+                            HeadingLevel.HEADING_5,
+                            HeadingLevel.HEADING_6
+                        ][el.level - 1],
+                        spacing: { before: 240, after: 120 }
+                    }));
+                }
                 break;
 
             case 'paragraph':
-                if (el.hasRichContent) {
-                    const inlineRuns = await parseInlineContent(el.content, docxLib);
-                    children.push(new Paragraph({
-                        children: inlineRuns,
-                        spacing: { after: 200 }
-                    }));
-                } else {
-                    children.push(new Paragraph({
-                        children: parseTextStyles(el.content, docxLib),
-                        spacing: { after: 200 }
-                    }));
+                {
+                    const paraContent = settings.removeExtraSpaces ? cleanExtraSpaces(el.content) : el.content;
+                    if (el.hasRichContent) {
+                        const inlineRuns = await parseInlineContent(paraContent, docxLib);
+                        children.push(new Paragraph({
+                            children: inlineRuns,
+                            spacing: { after: 200 }
+                        }));
+                    } else {
+                        children.push(new Paragraph({
+                            children: parseTextStyles(paraContent, docxLib, settings),
+                            spacing: { after: 200 }
+                        }));
+                    }
                 }
                 break;
 
@@ -1127,18 +1218,20 @@ async function convertAndDownload(content, filename) {
                 break;
 
             case 'blockquote':
-                children.push(new Paragraph({
-                    children: [new TextRun({
-                        text: el.content,
-                        italics: true,
-                        color: '666666'
-                    })],
-                    indent: { left: 720 },
-                    border: {
-                        left: { color: '999999', size: 6, style: BorderStyle.SINGLE }
-                    },
-                    spacing: { before: 200, after: 200 }
-                }));
+                {
+                    const bqContent = settings.removeExtraSpaces ? cleanExtraSpaces(el.content) : el.content;
+                    const bqRunOptions = { text: bqContent };
+                    if (settings.blockquoteItalic) bqRunOptions.italics = true;
+                    if (settings.blockquoteColor) bqRunOptions.color = settings.blockquoteColor;
+                    children.push(new Paragraph({
+                        children: [new TextRun(bqRunOptions)],
+                        indent: { left: 720 },
+                        border: {
+                            left: { color: '999999', size: 6, style: BorderStyle.SINGLE }
+                        },
+                        spacing: { before: 200, after: 200 }
+                    }));
+                }
                 break;
 
             case 'taskList':
@@ -1155,22 +1248,44 @@ async function convertAndDownload(content, filename) {
 
             case 'unorderedList':
                 el.items.forEach(item => {
-                    children.push(new Paragraph({
-                        text: `• ${item}`,
-                        indent: { left: 360 },
-                        spacing: { after: 80 }
-                    }));
+                    const ulContent = settings.removeExtraSpaces ? cleanExtraSpaces(item) : item;
+                    const ulHasStyle = /\*\*|\*|~~|`|\[.+?\]\(.+?\)/.test(ulContent);
+                    if (ulHasStyle) {
+                        const bulletRun = new TextRun({ text: '• ' });
+                        children.push(new Paragraph({
+                            children: [bulletRun, ...parseTextStyles(ulContent, docxLib, settings)],
+                            indent: { left: 360 },
+                            spacing: { after: 80 }
+                        }));
+                    } else {
+                        children.push(new Paragraph({
+                            text: `• ${ulContent}`,
+                            indent: { left: 360 },
+                            spacing: { after: 80 }
+                        }));
+                    }
                 });
                 children.push(new Paragraph({ text: '', spacing: { after: 120 } }));
                 break;
 
             case 'orderedList':
                 el.items.forEach((item, idx) => {
-                    children.push(new Paragraph({
-                        text: `${idx + 1}. ${item}`,
-                        indent: { left: 360 },
-                        spacing: { after: 80 }
-                    }));
+                    const olContent = settings.removeExtraSpaces ? cleanExtraSpaces(item) : item;
+                    const olHasStyle = /\*\*|\*|~~|`|\[.+?\]\(.+?\)/.test(olContent);
+                    if (olHasStyle) {
+                        const numRun = new TextRun({ text: `${idx + 1}. ` });
+                        children.push(new Paragraph({
+                            children: [numRun, ...parseTextStyles(olContent, docxLib, settings)],
+                            indent: { left: 360 },
+                            spacing: { after: 80 }
+                        }));
+                    } else {
+                        children.push(new Paragraph({
+                            text: `${idx + 1}. ${olContent}`,
+                            indent: { left: 360 },
+                            spacing: { after: 80 }
+                        }));
+                    }
                 });
                 children.push(new Paragraph({ text: '', spacing: { after: 120 } }));
                 break;

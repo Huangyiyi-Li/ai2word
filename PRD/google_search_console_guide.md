@@ -38,7 +38,7 @@ Google 需要确认您是该网站的所有者。对于 Cloudflare Pages，最�
 
 验证成功后，告诉 Google 您的页面有哪些。
 
-1. 在 GSC 左侧菜单中，点击 **编制索引** -> **站点地图 (Sitemaps)**。
+1. 在 GSC 左侧菜单中，点击 **编 制索引** -> **站点地图 (Sitemaps)**。
 2. 在“添加新的站点地图”输入框中，输入您的 Sitemap文件名：
     `sitemap.xml`
     *(如果您的 GSC 资源地址是 `https://www.aitowords.com/`，则只需填写 `sitemap.xml`。确保最终拼接的地址是 `https://www.aitowords.com/sitemap.xml`)*

@@ -68,6 +68,28 @@ const platformConfigs = {
             messageContent: '.md-content, [class*="markdown"]',
             conversationContainer: '[class*="chat-container"]'
         }
+    },
+    gemini: {
+        name: 'Gemini',
+        hostPatterns: ['gemini.google.com'],
+        selectors: {
+            messageContainer: '.conversation-turn, [class*="turn"]',
+            userMessage: '[class*="user-turn"], [data-author="user"]',
+            assistantMessage: '[class*="model-turn"], [data-author="model"]',
+            messageContent: '.markdown, [class*="response-content"], .model-response-text',
+            conversationContainer: '[class*="conversation"]'
+        }
+    },
+    monica: {
+        name: 'Monica',
+        hostPatterns: ['monica.im'],
+        selectors: {
+            messageContainer: '[class*="message-item"], [class*="chat-message"]',
+            userMessage: '[class*="user"], [class*="human"]',
+            assistantMessage: '[class*="assistant"], [class*="bot"]',
+            messageContent: '.markdown-body, [class*="markdown"], [class*="content"]',
+            conversationContainer: '[class*="chat-list"], [class*="conversation"]'
+        }
     }
 };
 

@@ -597,6 +597,7 @@
                     <button class="editor-tab active" data-i18n="tabEditor">编辑器</button>
                 </div>
                 <div class="editor-actions">
+                    <button class="btn btn-secondary" id="settingsToggle" title="导出设置">⚙️ 设置</button>
                     <button class="btn btn-secondary" id="clearBtn" data-i18n="clearBtn">清空</button>
                     <button class="btn btn-primary" id="exportBtn" data-i18n="exportBtn">
                         ⬇️ 导出 Word
@@ -628,6 +629,59 @@
                     <div id="previewArea" class="preview-area">
                         <p style="color: var(--text-muted);" data-i18n="previewHint">输入内容后将在此显示预览...</p>
                     </div>
+                </div>
+            </div>
+
+            <!-- 设置面板 -->
+            <div id="settingsPanel"
+                style="display:none; padding:20px; background:var(--bg-secondary); border-top:1px solid var(--border);">
+                <h3 style="font-size:16px; margin-bottom:16px; color:var(--text-primary);">📝 导出设置</h3>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                    <label
+                        style="display:flex; align-items:center; gap:8px; padding:10px; border-radius:8px; background:white; cursor:pointer; border:1px solid var(--border);">
+                        <input type="checkbox" id="webSettingPreserveHeadingStyle" checked
+                            style="width:18px; height:18px; accent-color:var(--primary);">
+                        <div>
+                            <div style="font-size:13px; font-weight:500;">保留标题样式</div>
+                            <div style="font-size:11px; color:var(--text-muted);">标题中的粗体/斜体同步到 Word</div>
+                        </div>
+                    </label>
+                    <label
+                        style="display:flex; align-items:center; gap:8px; padding:10px; border-radius:8px; background:white; cursor:pointer; border:1px solid var(--border);">
+                        <input type="checkbox" id="webSettingPreserveBold" checked
+                            style="width:18px; height:18px; accent-color:var(--primary);">
+                        <div>
+                            <div style="font-size:13px; font-weight:500;">保留粗体</div>
+                            <div style="font-size:11px; color:var(--text-muted);">**粗体** 同步到 Word</div>
+                        </div>
+                    </label>
+                    <label
+                        style="display:flex; align-items:center; gap:8px; padding:10px; border-radius:8px; background:white; cursor:pointer; border:1px solid var(--border);">
+                        <input type="checkbox" id="webSettingPreserveItalic" checked
+                            style="width:18px; height:18px; accent-color:var(--primary);">
+                        <div>
+                            <div style="font-size:13px; font-weight:500;">保留斜体</div>
+                            <div style="font-size:11px; color:var(--text-muted);">*斜体* 同步到 Word</div>
+                        </div>
+                    </label>
+                    <label
+                        style="display:flex; align-items:center; gap:8px; padding:10px; border-radius:8px; background:white; cursor:pointer; border:1px solid var(--border);">
+                        <input type="checkbox" id="webSettingRemoveExtraSpaces"
+                            style="width:18px; height:18px; accent-color:var(--primary);">
+                        <div>
+                            <div style="font-size:13px; font-weight:500;">去除多余空格</div>
+                            <div style="font-size:11px; color:var(--text-muted);">去除标点前 AI 加的空格</div>
+                        </div>
+                    </label>
+                    <label
+                        style="display:flex; align-items:center; gap:8px; padding:10px; border-radius:8px; background:white; cursor:pointer; border:1px solid var(--border);">
+                        <input type="checkbox" id="webSettingBlockquoteItalic" checked
+                            style="width:18px; height:18px; accent-color:var(--primary);">
+                        <div>
+                            <div style="font-size:13px; font-weight:500;">引用斜体</div>
+                            <div style="font-size:11px; color:var(--text-muted);">blockquote 以斜体显示</div>
+                        </div>
+                    </label>
                 </div>
             </div>
         </div>
@@ -864,6 +918,56 @@ print(fibonacci(10))
         // 加载示例
         markdownInput.value = examples.basic;
         updatePreview();
+
+        // ============== 设置面板逻辑 ==============
+        const settingsToggle = document.getElementById('settingsToggle');
+        const settingsPanel = document.getElementById('settingsPanel');
+        const webSettings = {
+            preserveHeadingStyle: document.getElementById('webSettingPreserveHeadingStyle'),
+            preserveBold: document.getElementById('webSettingPreserveBold'),
+            preserveItalic: document.getElementById('webSettingPreserveItalic'),
+            removeExtraSpaces: document.getElementById('webSettingRemoveExtraSpaces'),
+            blockquoteItalic: document.getElementById('webSettingBlockquoteItalic')
+        };
+
+        // 设置面板切换
+        settingsToggle.addEventListener('click', () => {
+            settingsPanel.style.display = settingsPanel.style.display === 'none' ? 'block' : 'none';
+        });
+
+        // 加载保存的设置
+        function loadWebSettings() {
+            try {
+                const stored = localStorage.getItem('aitowords_settings');
+                if (stored) {
+                    const s = JSON.parse(stored);
+                    if (webSettings.preserveHeadingStyle) webSettings.preserveHeadingStyle.checked = s.preserveHeadingStyle ?? true;
+                    if (webSettings.preserveBold) webSettings.preserveBold.checked = s.preserveBold ?? true;
+                    if (webSettings.preserveItalic) webSettings.preserveItalic.checked = s.preserveItalic ?? true;
+                    if (webSettings.removeExtraSpaces) webSettings.removeExtraSpaces.checked = s.removeExtraSpaces ?? false;
+                    if (webSettings.blockquoteItalic) webSettings.blockquoteItalic.checked = s.blockquoteItalic ?? true;
+                }
+            } catch (e) { console.warn('Failed to load settings', e); }
+        }
+
+        function saveWebSettings() {
+            const settings = {
+                preserveHeadingStyle: webSettings.preserveHeadingStyle?.checked ?? true,
+                preserveBold: webSettings.preserveBold?.checked ?? true,
+                preserveItalic: webSettings.preserveItalic?.checked ?? true,
+                removeExtraSpaces: webSettings.removeExtraSpaces?.checked ?? false,
+                blockquoteItalic: webSettings.blockquoteItalic?.checked ?? true,
+                blockquoteColor: webSettings.blockquoteItalic?.checked ? '666666' : ''
+            };
+            if (window.saveConvertSettings) window.saveConvertSettings(settings);
+        }
+
+        // 绑定设置变更事件
+        Object.values(webSettings).forEach(el => {
+            if (el) el.addEventListener('change', saveWebSettings);
+        });
+
+        loadWebSettings();
     </script>
 </body>
 

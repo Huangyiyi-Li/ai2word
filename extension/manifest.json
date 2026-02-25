@@ -21,7 +21,9 @@
         "https://chat.deepseek.com/*",
         "https://tongyi.aliyun.com/*",
         "https://yiyan.baidu.com/*",
-        "https://kimi.moonshot.cn/*"
+        "https://gemini.google.com/*",
+        "https://kimi.moonshot.cn/*",
+        "https://monica.im/*"
     ],
     "background": {
         "service_worker": "background.js",
@@ -39,7 +41,9 @@
                 "https://chat.deepseek.com/*",
                 "https://tongyi.aliyun.com/*",
                 "https://yiyan.baidu.com/*",
-                "https://kimi.moonshot.cn/*"
+                "https://gemini.google.com/*",
+                "https://kimi.moonshot.cn/*",
+                "https://monica.im/*"
             ],
             "js": [
                 "content/content.js"
