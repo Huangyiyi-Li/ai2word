@@ -732,15 +732,80 @@
                 </div>
             </div>
         </div>
+
+        <!-- 工具详细介绍 -->
+        <div class="faq-container" style="margin-top: 24px;">
+            <h2 class="faq-title" style="font-size:26px;">🛠️ 为什么选择 AiToWords？</h2>
+            <div style="color: var(--text-secondary); line-height: 1.9; font-size: 15px;">
+                <p>在 AI 工具普及的今天，越来越多的用户需要将 ChatGPT、DeepSeek、Claude、Gemini 等 AI 助手生成的内容转换为正式的 Word 文档（.docx）。然而，直接从 AI
+                    界面复制粘贴到 Word，往往会丢失以下格式：</p>
+                <ul style="margin: 16px 0 16px 20px;">
+                    <li style="margin-bottom:8px;">📐 <strong>LaTeX 数学公式</strong>（如 <code>$E=mc^2$</code>）变成乱码或纯文本</li>
+                    <li style="margin-bottom:8px;">📊 <strong>Mermaid 流程图、时序图</strong>无法正常显示</li>
+                    <li style="margin-bottom:8px;">💻 <strong>代码块</strong>丢失等宽字体和语法高亮</li>
+                    <li style="margin-bottom:8px;">📝 <strong>表格、列表、引用</strong>格式错乱</li>
+                    <li style="margin-bottom:8px;"><strong>标题层级</strong>变成普通段落文本</li>
+                </ul>
+                <p><strong>AiToWords 正是为了解决这些问题而生。</strong>它在浏览器本地将 Markdown 格式的 AI 输出精准转换为格式完整的 Word
+                    文档，全程无需上传任何内容到服务器，保护您的数据隐私。</p>
+
+                <h3 style="font-size:18px; font-weight:600; color:var(--text-primary); margin: 28px 0 14px;">✅ 支持的
+                    Markdown 语法</h3>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:16px;">
+                    <div
+                        style="padding:10px 14px; background:var(--bg-secondary); border-radius:8px; border:1px solid var(--border); font-size:14px;">
+                        📌 六级标题（H1–H6）</div>
+                    <div
+                        style="padding:10px 14px; background:var(--bg-secondary); border-radius:8px; border:1px solid var(--border); font-size:14px;">
+                        **粗体** 与 *斜体*</div>
+                    <div
+                        style="padding:10px 14px; background:var(--bg-secondary); border-radius:8px; border:1px solid var(--border); font-size:14px;">
+                        有序列表 / 无序列表</div>
+                    <div
+                        style="padding:10px 14px; background:var(--bg-secondary); border-radius:8px; border:1px solid var(--border); font-size:14px;">
+                        代码块（多语言高亮）</div>
+                    <div
+                        style="padding:10px 14px; background:var(--bg-secondary); border-radius:8px; border:1px solid var(--border); font-size:14px;">
+                        📊 Markdown 表格</div>
+                    <div
+                        style="padding:10px 14px; background:var(--bg-secondary); border-radius:8px; border:1px solid var(--border); font-size:14px;">
+                        📐 LaTeX 数学公式</div>
+                    <div
+                        style="padding:10px 14px; background:var(--bg-secondary); border-radius:8px; border:1px solid var(--border); font-size:14px;">
+                        🖼️ Mermaid 图表（流程图等）</div>
+                    <div
+                        style="padding:10px 14px; background:var(--bg-secondary); border-radius:8px; border:1px solid var(--border); font-size:14px;">
+                        &gt; 引用块（Blockquote）</div>
+                    <div
+                        style="padding:10px 14px; background:var(--bg-secondary); border-radius:8px; border:1px solid var(--border); font-size:14px;">
+                        分隔线（---）</div>
+                    <div
+                        style="padding:10px 14px; background:var(--bg-secondary); border-radius:8px; border:1px solid var(--border); font-size:14px;">
+                        行内代码（`code`）</div>
+                </div>
+
+                <h3 style="font-size:18px; font-weight:600; color:var(--text-primary); margin: 28px 0 14px;">👥 适合哪些用户？
+                </h3>
+                <p><strong>学生与研究者：</strong>用 AI 辅助写论文、报告后，使用 AiToWords 一键转为格式规范的 Word 文档，轻松符合学术提交要求，LaTeX 公式完整保留。</p>
+                <p><strong>职场办公人员：</strong>将 AI 生成的方案、总结、PPT 大纲整理为标准 Word 格式，快速完成工作文档，无需手动重排版式。</p>
+                <p><strong>开发者与技术写作者：</strong>包含代码块、技术图表的 AI 对话内容，可以完整保留代码高亮并导出为专业技术文档。</p>
+
+                <h3 style="font-size:18px; font-weight:600; color:var(--text-primary); margin: 28px 0 14px;">🔒 隐私承诺
+                </h3>
+                <p>AiToWords
+                    所有的转换逻辑均在您的浏览器本地运行，<strong>不会将您的任何数据发送到服务器</strong>。您可以放心粘贴包含敏感信息的对话内容。我们没有后端服务器，没有数据库，无法也不会存储您的任何内容。
+                </p>
+            </div>
+        </div>
     </main>
 
     <!-- Footer -->
     <footer class="footer">
         <p data-i18n="footerText">AiToWords - 免费开源的 Markdown 转 Word 工具</p>
         <p style="margin-top: 8px;">
-
             <a href="https://github.com/Huangyiyi-Li/ai2word" target="_blank">GitHub</a> ·
-            <a href="privacy.html" target="_blank" style="margin-left: 8px;">隐私政策 (Privacy)</a> ·
+            <a href="privacy.html" target="_blank" style="margin-left: 8px;">隐私政策</a> ·
+            <a href="contact.html" style="margin-left: 8px;">联系我们</a> ·
             Made with ❤️
         </p>
     </footer>
@@ -969,7 +1034,90 @@ print(fibonacci(10))
 
         loadWebSettings();
     </script>
+
+    <!-- Cookie 同意横幅 -->
+    <div id="cookieConsent" style="
+        display: none;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
+        background: #1e293b;
+        color: #e2e8f0;
+        padding: 16px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+        box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+        font-family: 'Inter', sans-serif;
+        font-size: 14px;
+    ">
+        <div style="flex: 1; min-width: 240px; line-height: 1.6;">
+            🍪 <span id="cookieText">本网站使用 Cookie 提供广告和分析服务。继续使用即表示您同意我们的 </span>
+            <a href="privacy.html" id="cookiePrivacyLink" style="color: #818cf8; text-decoration: underline;">隐私政策</a>。
+        </div>
+        <div style="display: flex; gap: 10px; flex-shrink: 0;">
+            <button onclick="declineCookies()" style="
+                padding: 8px 16px;
+                border: 1px solid #475569;
+                background: transparent;
+                color: #94a3b8;
+                border-radius: 8px;
+                cursor: pointer;
+                font-size: 13px;
+                font-family: 'Inter', sans-serif;
+            " id="cookieDeclineBtn">仅必要</button>
+            <button onclick="acceptCookies()" style="
+                padding: 8px 20px;
+                border: none;
+                background: linear-gradient(135deg, #4f46e5, #7c3aed);
+                color: white;
+                border-radius: 8px;
+                cursor: pointer;
+                font-size: 13px;
+                font-weight: 600;
+                font-family: 'Inter', sans-serif;
+            " id="cookieAcceptBtn">接受全部</button>
+        </div>
+    </div>
+    <script>
+        (function () {
+            var consent = localStorage.getItem('cookieConsent');
+            if (!consent) {
+                document.getElementById('cookieConsent').style.display = 'flex';
+            }
+        })();
+
+        function acceptCookies() {
+            localStorage.setItem('cookieConsent', 'accepted');
+            document.getElementById('cookieConsent').style.display = 'none';
+        }
+
+        function declineCookies() {
+            localStorage.setItem('cookieConsent', 'declined');
+            document.getElementById('cookieConsent').style.display = 'none';
+        }
+
+        // i18n 支持（在 i18n.js 加载后更新文本）
+        document.addEventListener('DOMContentLoaded', function () {
+            var lang = localStorage.getItem('lang') || 'zh';
+            if (lang === 'en') {
+                var t = document.getElementById('cookieText');
+                var p = document.getElementById('cookiePrivacyLink');
+                var a = document.getElementById('cookieAcceptBtn');
+                var d = document.getElementById('cookieDeclineBtn');
+                if (t) t.textContent = 'This site uses cookies for ads and analytics. By continuing you agree to our ';
+                if (p) p.textContent = 'Privacy Policy';
+                if (a) a.textContent = 'Accept All';
+                if (d) d.textContent = 'Essential Only';
+            }
+        });
+    </script>
 </body>
+
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-71C191VNS7"></script>

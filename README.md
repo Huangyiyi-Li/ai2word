@@ -35,12 +35,16 @@
 │   ├── manifest.json    # 插件配置 (Manifest V3)
 │   ├── background.js    # Service Worker
 │   ├── content/         # 内容脚本
-│   ├── sidepanel/       # 侧边栏UI
+│   ├── sidepanel/       # 侧边栍UI
 │   ├── lib/             # 转换库
 │   └── icons/           # 图标
 ├── webapp/              # 独立网页版
-│   ├── index.html       # 单文件应用
-│   └── ads.txt          # AdSense 授权文件
+│   ├── index.html       # 主页应用（包含 Cookie 同意横幅）
+│   ├── contact.html     # 联系我们页面
+│   ├── privacy.html     # 隐私政策页面
+│   ├── install.html     # 插件安装指南
+│   ├── ads.txt          # AdSense 授权文件
+│   └── robots.txt       # 爬虫配置
 └── PRD/                 # 产品文档
 ```
 
