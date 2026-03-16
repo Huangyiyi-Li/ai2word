@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>批量处理 AI 对话导出 Word 教程 | AiToWords 免费工具</title>
+    <meta name="description" content="详细讲解如何使用 AiToWords 批量处理功能，一次性导出多个 AI 对话为 Word 文档。支持多文件上传，最多 10 个文件。">
+    <meta name="keywords" content="批量导出Word,多文件转换,AI对话批量处理,Markdown批量转换">
+    <link rel="canonical" href="https://www.aitowords.com/batch-export.html">
+    <link rel="icon" type="image/png" href="extension/icons/icon128.png">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        h1 { font-size: 32px; margin-bottom: 24px; color: #1a1a1a; }
+        h2 { font-size: 24px; margin: 40px 0 16px; color: #2c3e50; border-left: 4px solid #3498db; padding-left: 12px; }
+        h3 { font-size: 20px; margin: 32px 0 12px; color: #34495e; }
+        p { margin-bottom: 16px; color: #555; }
+        ul, ol { margin: 16px 0; padding-left: 24px; }
+        li { margin-bottom: 8px; }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        .tip-box {
+            background: #e3f2fd;
+            border-left: 4px solid #3498db;
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .cta-box {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            padding: 32px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 40px 0;
+        }
+        .cta-box h3 { color: white; margin-top: 0; }
+        .cta-box a {
+            display: inline-block;
+            background: white;
+            color: #3498db;
+            padding: 12px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 16px;
+        }
+        .steps { counter-reset: step; }
+        .step {
+            position: relative;
+            padding-left: 48px;
+            margin: 24px 0;
+        }
+        .step:before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 32px;
+            height: 32px;
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 24px;
+            color: #3498db;
+            text-decoration: none;
+        }
+        .back-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <a href="/" class="back-link">← 返回首页</a>
+    
+    <h1>批量处理 AI 对话导出 Word 完整教程</h1>
+    
+    <p>如果你有多个 AI 对话需要导出，逐个复制粘贴会很麻烦。AiToWords 的<strong>批量处理功能</strong>可以一次性处理最多 10 个文件，大幅提升效率。本教程将详细介绍如何使用批量处理功能。</p>
+    
+    <div class="cta-box">
+        <h3>批量处理功能</h3>
+        <p>一次最多处理 10 个文件</p>
+        <a href="/">立即使用 AiToWords →</a>
+    </div>
+    
+    <h2>批量处理的优势</h2>
+    
+    <ul>
+        <li><strong>高效</strong>：一次处理多个文件，无需重复操作</li>
+        <li><strong>自动</strong>：自动生成文件列表，显示进度</li>
+        <li><strong>可靠</strong>：失败自动提示，支持重试</li>
+        <li><strong>灵活</strong>：支持拖拽上传和点击选择</li>
+    </ul>
+    
+    <h2>批量处理步骤（6步）</h2>
+    
+    <div class="steps">
+        <div class="step">
+            <h3>准备文件</h3>
+            <p>将需要导出的 AI 对话保存为 <code>.md</code> 或 <code>.txt</code> 文件：</p>
+            <ul>
+                <li>从 ChatGPT、Claude、DeepSeek 等复制对话</li>
+                <li>粘贴到文本编辑器</li>
+                <li>保存为 <code>对话1.md</code>、<code>对话2.md</code> 等</li>
+            </ul>
+        </div>
+        
+        <div class="step">
+            <h3>打开 AiToWords</h3>
+            <p>访问 <a href="/">www.aitowords.com</a>，找到页面下方的"批量处理"面板。</p>
+        </div>
+        
+        <div class="step">
+            <h3>上传文件</h3>
+            <p>有两种方式：</p>
+            <ul>
+                <li><strong>拖拽上传</strong>：将文件直接拖到上传区域</li>
+                <li><strong>点击选择</strong>：点击上传区域，选择文件</li>
+            </ul>
+            <p>最多可以同时上传 <strong>10 个文件</strong>。</p>
+        </div>
+        
+        <div class="step">
+            <h3>检查文件列表</h3>
+            <p>上传后，文件会显示在列表中：</p>
+            <ul>
+                <li>文件名</li>
+                <li>文件大小</li>
+                <li>字数统计</li>
+                <li>删除按钮（可以移除不需要的文件）</li>
+            </ul>
+        </div>
+        
+        <div class="step">
+            <h3>开始批量导出</h3>
+            <p>点击"开始导出"按钮。系统会：</p>
+            <ul>
+                <li>显示进度条</li>
+                <li>逐个处理文件</li>
+                <li>自动下载生成的 Word 文档</li>
+            </ul>
+        </div>
+        
+        <div class="step">
+            <h3>查看结果</h3>
+            <p>处理完成后，显示统计信息：</p>
+            <ul>
+                <li>成功数量</li>
+                <li>失败数量（如有）</li>
+                <li>总计处理</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="tip-box">
+        <strong>💡 专业提示：</strong>
+        <p>建议按主题或日期命名文件（如 <code>2026-03-16_ChatGPT技术讨论.md</code>），方便后续整理。</p>
+    </div>
+    
+    <h2>批量处理使用场景</h2>
+    
+    <h3>1. 多个 AI 平台对话导出</h3>
+    <p>如果你同时使用 ChatGPT、Claude、DeepSeek 等多个平台：</p>
+    <ol>
+        <li>从每个平台复制对话</li>
+        <li>保存为不同的 <code>.md</code> 文件</li>
+        <li>批量上传到 AiToWords</li>
+        <li>一键导出所有对话</li>
+    </ol>
+    
+    <h3>2. 长对话分段导出</h3>
+    <p>如果对话很长（如 Kimi 的 20 万字对话）：</p>
+    <ol>
+        <li>将对话分成多个部分</li>
+        <li>每部分保存为一个文件</li>
+        <li>批量处理</li>
+        <li>在 Word 中合并</li>
+    </ol>
+    
+    <h3>3. 历史对话批量转换</h3>
+    <p>如果你有大量历史对话需要整理：</p>
+    <ol>
+        <li>导出历史对话记录</li>
+        <li>按日期或主题分类</li>
+        <li>批量转换为 Word</li>
+        <li>建立知识库</li>
+    </ol>
+    
+    <h3>4. 团队协作</h3>
+    <p>团队成员各自与 AI 对话后：</p>
+    <ol>
+        <li>每个人导出自己的对话</li>
+        <li>收集所有 <code>.md</code> 文件</li>
+        <li>批量转换为统一格式</li>
+        <li>合并为团队文档</li>
+    </ol>
+    
+    <h2>常见问题</h2>
+    
+    <h3>Q: 一次最多可以处理多少个文件？</h3>
+    <p>A: 最多 10 个文件。如果超过 10 个，建议分批处理。</p>
+    
+    <h3>Q: 文件大小有限制吗？</h3>
+    <p>A: 单个文件建议不超过 1MB。过大的文件建议拆分。</p>
+    
+    <h3>Q: 处理失败怎么办？</h3>
+    <p>A: 查看失败原因，通常是文件格式问题。确保文件是 <code>.md</code> 或 <code>.txt</code> 格式。</p>
+    
+    <h3>Q: 可以下载合并后的单个文件吗？</h3>
+    <p>A: 目前批量处理会为每个文件生成独立的 Word 文档。如需合并，请在 Word 中手动合并。</p>
+    
+    <h3>Q: 批量处理会保存我的文件吗？</h3>
+    <p>A: 不会。AiToWords 在浏览器本地处理数据，不会上传到服务器。</p>
+    
+    <div class="warning-box">
+        <strong>⚠️ 注意事项：</strong>
+        <ul>
+            <li>确保文件编码为 UTF-8，避免中文乱码</li>
+            <li>文件名不要包含特殊字符</li>
+            <li>大批量处理时，浏览器可能会提示"允许多次下载"，请点击允许</li>
+            <li>处理期间不要关闭浏览器</li>
+        </ul>
+    </div>
+    
+    <h2>批量处理技巧</h2>
+    
+    <h3>文件命名规范</h3>
+    <pre style="background: #f4f4f4; padding: 16px; border-radius: 8px;"><code>推荐命名格式：
+- 2026-03-16_ChatGPT_产品讨论.md
+- 2026-03-16_Claude_代码审查.md
+- 2026-03-16_DeepSeek_学术研究.md</code></pre>
+    
+    <h3>文件组织结构</h3>
+    <pre style="background: #f4f4f4; padding: 16px; border-radius: 8px;"><code>项目文件夹/
+├── 01_需求分析/
+│   ├── ChatGPT_需求讨论.md
+│   └── Claude_用户调研.md
+├── 02_技术方案/
+│   ├── DeepSeek_架构设计.md
+│   └── Kimi_代码实现.md
+└── 03_测试报告/
+    └── ChatGPT_测试用例.md</code></pre>
+    
+    <h3>批量处理 + 模板系统</h3>
+    <p>批量处理支持模板系统：</p>
+    <ol>
+        <li>在批量处理前选择合适的模板</li>
+        <li>所有文件会使用相同的模板</li>
+        <li>确保输出格式统一</li>
+    </ol>
+    
+    <h2>总结</h2>
+    
+    <p>批量处理功能让你的工作更高效：</p>
+    <ul>
+        <li>一次处理最多 10 个文件</li>
+        <li>支持拖拽上传</li>
+        <li>自动显示进度和结果</li>
+        <li>格式完美保留</li>
+    </ul>
+    
+    <p>立即试试批量处理功能，大幅提升你的工作效率！</p>
+    
+    <div class="cta-box">
+        <h3>开始批量处理</h3>
+        <p>免费 · 无需注册 · 高效批量转换</p>
+        <a href="/">立即使用 AiToWords →</a>
+    </div>
+    
+    <p style="text-align: center; color: #999; margin-top: 60px;">
+        <a href="/">AiToWords</a> - 免费 AI 对话转 Word 工具 | 
+        <a href="kimi-to-word.html">Kimi 教程</a> | 
+        <a href="chatgpt-to-word.html">ChatGPT 教程</a>
+    </p>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-71C191VNS7"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-71C191VNS7');
+    </script>
+</body>
+</html>
