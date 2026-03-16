@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "AiToWords - AI对话导出Word",
     "version": "1.1.0",
-    "description": "将ChatGPT、Claude等AI对话导出为Word文档，支持LaTeX公式、Mermaid图表、代码高亮",
+    "description": "将ChatGPT、Claude、DeepSeek、豆包、元宝等AI对话导出为Word文档，支持LaTeX公式、Mermaid图表、代码高亮",
     "icons": {
         "16": "icons/icon16.png",
         "32": "icons/icon32.png",
@@ -47,7 +47,11 @@
                 "https://yiyan.baidu.com/*",
                 "https://gemini.google.com/*",
                 "https://kimi.moonshot.cn/*",
-                "https://monica.im/*"
+                "https://monica.im/*",
+                "https://www.doubao.com/*",
+                "https://doubao.com/*",
+                "https://hunyuan.tencent.com/*",
+                "https://yuanbao.tencent.com/*"
             ],
             "js": [
                 "content/content.js"
@@ -64,7 +68,7 @@
             "32": "icons/icon32.png",
             "48": "icons/icon48.png"
         },
-        "default_title": "MD2Word - 导出AI对话"
+        "default_title": "AiToWords - 导出AI对话"
     },
     "web_accessible_resources": [
         {
@@ -74,10 +78,6 @@
             ],
             "matches": [
                 "<all_urls>"
-            ]
-        }
-    ]
-}
             ]
         }
     ]
