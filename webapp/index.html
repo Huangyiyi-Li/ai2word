@@ -916,6 +916,7 @@ print(fibonacci(10))
                 if (examples[example]) {
                     markdownInput.value = examples[example];
                     updatePreview();
+                    trackEvent('load_example', 'engagement', example); // 追踪示例使用
                 }
             });
         });
@@ -959,6 +960,8 @@ print(fibonacci(10))
                 return;
             }
 
+            trackEvent('click_export', 'conversion', 'export_button'); // 追踪导出按钮点击
+
             exportBtn.disabled = true;
             exportBtn.innerHTML = '<div class="spinner"></div> 处理中...';
 
@@ -968,9 +971,11 @@ print(fibonacci(10))
                 // 默认文件名为 MD2Word_日期.docx
                 const date = new Date().toISOString().slice(0, 10);
                 await convertAndDownload(content, `MD2Word_${date}.docx`);
+                trackEvent('export_success', 'conversion', 'word_downloaded'); // 追踪导出成功
             } catch (error) {
                 console.error('导出失败:', error);
                 alert('导出失败: ' + error.message);
+                trackEvent('export_error', 'conversion', 'export_failed', 0); // 追踪导出失败
             } finally {
                 exportBtn.disabled = false;
                 exportBtn.innerHTML = '⬇️ 导出 Word';
@@ -1127,6 +1132,26 @@ print(fibonacci(10))
     gtag('js', new Date());
 
     gtag('config', 'G-71C191VNS7');
+
+    // GA 事件追踪辅助函数
+    function trackEvent(action, category, label, value) {
+        if (typeof gtag !== 'undefined') {
+            gtag('event', action, {
+                'event_category': category,
+                'event_label': label,
+                'value': value
+            });
+        }
+    }
+
+    // 追踪用户首次输入
+    let hasTrackedInput = false;
+    function trackFirstInput() {
+        if (!hasTrackedInput) {
+            trackEvent('first_input', 'engagement', 'user_started_typing');
+            hasTrackedInput = true;
+        }
+    }
 </script>
 
-</html>
+</html>tml>
