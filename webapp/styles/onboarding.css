@@ -1,0 +1,227 @@
+/* 新手引导系统样式 */
+
+/* 欢迎弹窗 */
+.welcome-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.welcome-modal.active {
+    opacity: 1;
+}
+
+.welcome-modal-content {
+    background: var(--bg-primary);
+    border-radius: 16px;
+    padding: 40px;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.welcome-modal h2 {
+    font-size: 28px;
+    margin-bottom: 16px;
+    color: var(--primary);
+}
+
+.welcome-modal p {
+    font-size: 16px;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+    line-height: 1.6;
+}
+
+.welcome-steps {
+    text-align: left;
+    margin: 24px 0;
+    padding: 0;
+    list-style: none;
+}
+
+.welcome-steps li {
+    padding: 12px 0;
+    display: flex;
+    align-items: center;
+    color: var(--text-secondary);
+}
+
+.welcome-steps li span {
+    display: inline-flex;
+    width: 32px;
+    height: 32px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    margin-right: 16px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.welcome-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+.welcome-buttons button {
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.welcome-btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.welcome-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+.welcome-btn-secondary {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.welcome-btn-secondary:hover {
+    background: var(--border);
+}
+
+/* 工具提示 */
+.tooltip-container {
+    position: relative;
+}
+
+.tooltip {
+    position: absolute;
+    background: #1e293b;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    z-index: 9999;
+}
+
+.tooltip.active {
+    opacity: 1;
+}
+
+.tooltip::after {
+    content: '';
+    position: absolute;
+    border: 6px solid transparent;
+}
+
+.tooltip.tooltip-bottom::after {
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom-color: #1e293b;
+}
+
+.tooltip.tooltip-top::after {
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top-color: #1e293b;
+}
+
+/* 功能高亮 */
+.feature-highlight {
+    position: relative;
+    z-index: 9998;
+}
+
+.feature-highlight::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    border: 2px solid var(--primary);
+    border-radius: 12px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.05);
+    }
+}
+
+/* 遮罩层 */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 9997;
+    display: none;
+}
+
+.overlay.active {
+    display: block;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .welcome-modal-content {
+        padding: 24px;
+    }
+    
+    .welcome-modal h2 {
+        font-size: 24px;
+    }
+    
+    .welcome-buttons {
+        flex-direction: column;
+    }
+    
+    .welcome-buttons button {
+        width: 100%;
+    }
+}
