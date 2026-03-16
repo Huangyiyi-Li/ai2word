@@ -863,7 +863,7 @@ function parseTextStyles(text, docx) {
 
                 // 暂时保存当前runs，递归处理链接内部，然后包装
                 const savedRunsLength = runs.length;
-                process(textContent, { ...currentStyles, color: '0563C1', underline: {} });
+                process(textContent, { ...currentStyles }); // 移除强制蓝色，使用默认颜色
                 const children = runs.splice(savedRunsLength);
 
                 runs.push(new ExternalHyperlink({
@@ -1196,9 +1196,9 @@ async function convertAndDownload(content, filename) {
                 break;
 
             case 'hr':
+                // 使用空段落代替分隔线（更符合 Word 文档习惯）
                 children.push(new Paragraph({
-                    border: { bottom: { color: 'cccccc', size: 1, style: BorderStyle.SINGLE } },
-                    spacing: { before: 200, after: 200 }
+                    spacing: { before: 300, after: 300 }
                 }));
                 break;
         }
