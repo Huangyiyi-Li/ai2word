@@ -54,7 +54,8 @@
                 "https://yuanbao.tencent.com/*"
             ],
             "js": [
-                "content/content.js"
+                "content/content.js",
+                "content-search.js"
             ],
             "css": [
                 "content/content.css"
