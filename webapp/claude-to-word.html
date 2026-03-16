@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>如何将 Claude 对话导出为 Word 文档 | Claude 导出教程</title>
+    <meta name="description" content="详细教程：如何将Claude对话完美导出为Word文档，保留LaTeX公式、代码高亮、Mermaid图表。免费在线工具，3步完成。">
+    <meta name="keywords" content="Claude导出Word,Claude转Word,Claude对话导出,Anthropic Claude,Word导出">
+    <link rel="canonical" href="https://www.aitowords.com/claude-to-word.html">
+    <link rel="icon" type="image/png" href="extension/icons/icon128.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --border: #e2e8f0;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.8;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            background: var(--bg-primary);
+            min-height: 100vh;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 24px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+        
+        .meta {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 32px;
+        }
+        
+        h2 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-top: 40px;
+            margin-bottom: 16px;
+        }
+        
+        h3 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-top: 32px;
+            margin-bottom: 12px;
+        }
+        
+        p, ul, ol {
+            margin-bottom: 16px;
+            color: var(--text-secondary);
+        }
+        
+        .highlight-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--primary);
+            padding: 16px;
+            margin: 24px 0;
+        }
+        
+        code {
+            background: #f1f5f9;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 14px;
+        }
+        
+        .cta-box {
+            background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%);
+            color: white;
+            padding: 32px;
+            border-radius: 16px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .cta-box h2 {
+            color: white;
+            margin-top: 0;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 14px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 16px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 24px 16px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link">← 返回首页</a>
+        
+        <h1>如何将 Claude 对话导出为 Word 文档 | Claude 导出教程</h1>
+        
+        <div class="meta">
+            更新时间：2026年3月16日 | 阅读时间：4分钟
+        </div>
+        
+        <p><strong>Claude</strong> 是 Anthropic 开发的 AI 助刹，以长对话和代码能力著称。但很多用户发现：Claude 生成的精彩内容，无法直接导出为 Word 文档。复制粘贴后，数学公式、代码块、表格格式全部丢失。</p>
+        
+        <p>本文将教你 <strong>如何将 Claude 对话完美导出为 Word</strong>，保留所有格式。</p>
+        
+        <h2>CLAUDE 导出的常见问题</h2>
+        
+        <ul>
+            <li>❌ LaTeX 公式（<code>$E=mc^2$</code>）变成纯文本</li>
+            <li>❌ 代码块丢失语法高亮</li>
+            <li>❌ Mermaid 流程图无法显示</li>
+            <li>❌ 表格格式错乱</li>
+            <li>❌ Markdown 语法残留（如 <code>**粗体**</code>）</li>
+        </ul>
+        
+        <h2>解决方案：使用 AITOWORDS</h2>
+        
+        <p><strong>AiToWords</strong> 是专门为 AI 对话设计的 Markdown 转 Word 工具，完美支持 Claude 导出。</p>
+        
+        <h3>为什么选择 AiToWords？</h3>
+        
+        <div class="highlight-box">
+            <strong>✅ Claude 特色功能支持</strong><br>
+            - 长对话处理（Claude 的 200K token 上下文）<br>
+            - Artifacts 代码块完美转换<br>
+            - 数学公式（LaTeX）可编辑<br>
+            - Mermaid 图表自动渲染<br>
+            - 完全免费，隐私安全
+        </div>
+        
+        <h2>导出步骤（3 步完成）</h2>
+        
+        <h3>第 1 步：复制 Claude 对话</h3>
+        <ol>
+            <li>在 Claude 对话中，选中需要导出的内容</li>
+            <li>按 <code>Ctrl+C</code> 复制</li>
+            <li>💡 <strong>提示</strong>：Claude 支持 Markdown 格式复制</li>
+        </ol>
+        
+        <h3>第 2 步：粘贴到 AiToWords</h3>
+        <ol>
+            <li>打开 <a href="https://www.aitowords.com" style="color: var(--primary); font-weight: 600;">AiToWords.com</a></li>
+            <li>将内容粘贴到左侧编辑器</li>
+            <li>右侧实时预览格式效果</li>
+        </ol>
+        
+        <h3>第 3 步：导出 Word 文档</h3>
+        <ol>
+            <li>确认预览效果符合预期</li>
+            <li>点击"导出 Word"按钮</li>
+            <li>下载 <code>.docx</code> 文件，完成！</li>
+        </ol>
+        
+        <h2>支持哪些 Claude 内容？</h2>
+        
+        <ul>
+            <li>✅ 长对话（无长度限制）</li>
+            <li>✅ Artifacts 代码块</li>
+            <li>✅ LaTeX 数学公式</li>
+            <li>✅ Mermaid 流程图、时序图</li>
+            <li>✅ Markdown 表格</li>
+            <li>✅ 代码块（支持 50+ 种语言高亮）</li>
+            <li>✅ 引用、列表、标题</li>
+        </ul>
+        
+        <h2>常见问题</h2>
+        
+        <h3>Q: Claude 对话很长，能处理吗？</h3>
+        <p><strong>可以</strong>。 AiToWords 没有长度限制，Claude 的 200K token 上下文也能完美处理。</p>
+        
+        <h3>Q: Artifacts 中的代码能保留格式吗？</h3>
+        <p><strong>可以</strong>. Artifacts 代码块会被转为 Word 中的格式化代码，保留语法高亮和等宽字体。</p>
+        
+        <h3>Q: 导出后可以在 Word 中编辑吗？</h3>
+        <p><strong>完全可以</strong>。 所有格式都是 Word 原生格式，可以在 Word、WPS、Google Docs 中自由编辑。</p>
+        
+        <h3>Q: 数据会被上传吗？</h3>
+        <p><strong>不会</strong>。 所有处理都在浏览器本地完成，数据永远不会发送到服务器。</p>
+        
+        <div class="cta-box">
+            <h2>立即体验 Claude 导出</h2>
+            <p>免费、快速，完美保留 Claude 对话格式</p>
+            <a href="/" class="cta-button">开始转换 →</a>
+        </div>
+        
+        <div style="margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border);">
+            <p style="font-size: 14px; color: var(--text-secondary);">
+                📚 相关教程：
+                <a href="chatgpt-to-word.html" style="color: var(--primary);">ChatGPT 导出教程</a> ·
+                <a href="deepseek-to-word.html" style="color: var(--primary);">DeepSeek 导出教程</a>
+            </p>
+        </div>
+    </div>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-71C191VNS7"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-71C191VNS7');
+    </script>
+</body>
+</html>
