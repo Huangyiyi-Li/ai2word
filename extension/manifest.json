@@ -23,7 +23,11 @@
         "https://yiyan.baidu.com/*",
         "https://gemini.google.com/*",
         "https://kimi.moonshot.cn/*",
-        "https://monica.im/*"
+        "https://monica.im/*",
+        "https://www.doubao.com/*",
+        "https://doubao.com/*",
+        "https://hunyuan.tencent.com/*",
+        "https://yuanbao.tencent.com/*"
     ],
     "background": {
         "service_worker": "background.js",
@@ -70,6 +74,10 @@
             ],
             "matches": [
                 "<all_urls>"
+            ]
+        }
+    ]
+}
             ]
         }
     ]

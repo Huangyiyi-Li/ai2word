@@ -24,7 +24,7 @@ const i18nData = {
         selectAssistant: "仅AI回复",
         selectedCount: "已选: {count}",
         emptyState: "打开任意 AI 对话页面",
-        emptyHint: "支持 ChatGPT、Claude、DeepSeek、通义千问、文心一言、Kimi",
+        emptyHint: "支持 ChatGPT、Claude、DeepSeek、豆包、元宝、通义千问、文心一言、Kimi 等主流AI平台",
         waitingStatus: "等待检测AI平台...",
         manualExportBtn: "导出 Word"
     },

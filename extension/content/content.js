@@ -90,6 +90,28 @@ const platformConfigs = {
             messageContent: '.markdown-body, [class*="markdown"], [class*="content"]',
             conversationContainer: '[class*="chat-list"], [class*="conversation"]'
         }
+    },
+    doubao: {
+        name: '豆包',
+        hostPatterns: ['doubao.com', 'www.doubao.com'],
+        selectors: {
+            messageContainer: '[class*="message"], [class*="chat-item"]',
+            userMessage: '[class*="user"], [class*="human"]',
+            assistantMessage: '[class*="assistant"], [class*="bot"], [class*="ai"]',
+            messageContent: '.markdown-body, [class*="markdown"], [class*="content"]',
+            conversationContainer: '[class*="chat-list"], [class*="conversation"]'
+        }
+    },
+    yuanbao: {
+        name: '元宝',
+        hostPatterns: ['hunyuan.tencent.com', 'yuanbao.tencent.com'],
+        selectors: {
+            messageContainer: '[class*="message"], [class*="chat-item"]',
+            userMessage: '[class*="user"], [class*="human"]',
+            assistantMessage: '[class*="assistant"], [class*="bot"], [class*="ai"]',
+            messageContent: '.markdown-body, [class*="markdown"], [class*="content"]',
+            conversationContainer: '[class*="chat-list"], [class*="conversation"]'
+        }
     }
 };
 
