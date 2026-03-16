@@ -1,445 +1,450 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>安装 AiToWords 插件 - 免费AI对话转Word工具</title>
-    <meta name="description" content="AiToWords 插件安装指南。下载并安装浏览器插件，更便捷地将 AI 对话导出为 Word 文档。">
-
-    <!-- Favicon -->
+    <title>安装 AiToWords 浏览器插件 | 免费AI对话导出工具</title>
+    <meta name="description" content="下载 AiToWords 浏览器插件，支持 ChatGPT、DeepSeek、豆包、元宝等 AI 平台一键导出对话为 Word 文档">
+    <meta name="keywords" content="AiToWords下载,浏览器插件,ChatGPT插件,DeepSeek插件,豆包插件,元宝插件">
+    <link rel="canonical" href="https://www.aitowords.com/install.html">
     <link rel="icon" type="image/png" href="extension/icons/icon128.png">
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Canonical -->
-    <link rel="canonical" href="https://huangyiyi-li.github.io/ai2word/webapp/install.html">
-
-    <!-- JSON-LD Schema -->
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "TechArticle",
-            "headline": "How to Install AiToWords Browser Extension",
-            "description": "Step-by-step guide to installing the AiToWords extension for Chrome and Edge browsers.",
-            "image": "https://huangyiyi-li.github.io/ai2word/webapp/extension/icons/icon128.png",
-            "author": {
-                "@type": "Person",
-                "name": "Huangyiyi-Li"
-            },
-            "publisher": {
-                "@type": "Organization",
-                "name": "AiToWords",
-                "logo": {
-                    "@type": "ImageObject",
-                    "url": "https://huangyiyi-li.github.io/ai2word/webapp/extension/icons/icon128.png"
-                }
-            },
-            "datePublished": "2024-02-05",
-            "dateModified": "2024-02-05"
-        }
-    </script>
-
+    
     <style>
         :root {
             --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --primary-light: rgba(79, 70, 229, 0.1);
-            --secondary: #7c3aed;
-            --success: #10b981;
-            --bg-primary: #ffffff;
-            --bg-secondary: #f8fafc;
-            --bg-dark: #0f172a;
+            --primary-dark: #4338ca;
             --text-primary: #1e293b;
             --text-secondary: #64748b;
-            --text-muted: #94a3b8;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
             --border: #e2e8f0;
-            --radius: 12px;
-            --radius-lg: 16px;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --transition: all 0.2s ease;
+            --success: #10b981;
         }
-
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            line-height: 1.6;
             color: var(--text-primary);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
         }
-
-        /* Header */
-        .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-content {
-            max-width: 1200px;
+        
+        .container {
+            max-width: 900px;
             margin: 0 auto;
-            padding: 16px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        .nav {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
-
-        .nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .nav a:hover {
-            color: var(--primary);
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 12px 24px;
-            border: none;
-            border-radius: var(--radius);
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5);
-        }
-
-        .btn-large {
-            padding: 16px 32px;
-            font-size: 18px;
-        }
-
-        /* Main Content */
-        .main {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 0 24px;
-        }
-
-        .card {
             background: var(--bg-primary);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-lg);
-            padding: 40px;
-            margin-bottom: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
-
-        .page-title {
-            text-align: center;
-            margin-bottom: 40px;
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%);
             color: white;
+            padding: 60px 40px;
+            text-align: center;
         }
-
-        .page-title h1 {
-            font-size: 42px;
+        
+        .header h1 {
+            font-size: 36px;
+            font-weight: 700;
             margin-bottom: 16px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-
-        .page-title p {
+        
+        .header p {
             font-size: 18px;
             opacity: 0.9;
+            margin-bottom: 32px;
         }
-
-        .download-section {
-            text-align: center;
-            margin-bottom: 60px;
-            padding-bottom: 40px;
-            border-bottom: 1px solid var(--border);
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: white;
+            color: var(--primary);
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
-
-        .download-section h2 {
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .download-btn span {
             font-size: 24px;
+        }
+        
+        .content {
+            padding: 60px 40px;
+        }
+        
+        .section {
+            margin-bottom: 48px;
+        }
+        
+        .section h2 {
+            font-size: 28px;
+            font-weight: 600;
             margin-bottom: 24px;
             color: var(--text-primary);
         }
-
-        .steps {
-            counter-reset: step;
+        
+        .section h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 32px;
+            margin-bottom: 16px;
+            color: var(--text-primary);
         }
-
-        .step-item {
-            display: flex;
-            gap: 24px;
-            margin-bottom: 40px;
+        
+        .section p, .section li {
+            color: var(--text-secondary);
+            margin-bottom: 12px;
         }
-
-        .step-number {
-            flex-shrink: 0;
-            width: 48px;
-            height: 48px;
+        
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+        
+        .platform-card {
             background: var(--bg-secondary);
-            border: 2px solid var(--primary);
-            color: var(--primary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        
+        .platform-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .platform-card .icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+        
+        .platform-card .name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .step-list {
+            list-style: none;
+            counter-reset: step-counter;
+            margin: 24px 0;
+        }
+        
+        .step-list li {
+            counter-increment: step-counter;
+            position: relative;
+            padding-left: 48px;
+            margin-bottom: 24px;
+        }
+        
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            font-weight: 700;
+            font-weight: 600;
         }
-
-        .step-content {
-            flex: 1;
-        }
-
-        .step-content h3 {
-            font-size: 20px;
-            margin-bottom: 12px;
+        
+        .step-list li strong {
             color: var(--text-primary);
+            display: block;
+            margin-bottom: 8px;
         }
-
-        .step-content p {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 16px;
-        }
-
-        .step-image {
-            background: #f1f5f9;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 20px;
-            margin-top: 16px;
-            font-family: monospace;
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-
-        .code-box {
+        
+        .code-block {
             background: #1e293b;
             color: #e2e8f0;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-family: monospace;
-            cursor: pointer;
-            display: inline-block;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 16px 0;
         }
-
-        .code-box:hover {
-            background: #334155;
+        
+        .notice-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 24px 0;
         }
-
-        .browser-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            margin-bottom: 32px;
+        
+        .notice-box strong {
+            color: #b45309;
         }
-
-        .browser-tab {
-            padding: 12px 24px;
-            border-radius: 30px;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--transition);
+        
+        .success-box {
+            background: #d1fae5;
+            border-left: 4px solid var(--success);
+            padding: 16px;
+            border-radius: 8px;
+            margin: 24px 0;
         }
-
-        .browser-tab.active {
-            background: white;
-            color: var(--primary);
+        
+        .success-box strong {
+            color: #047857;
         }
-
+        
         .footer {
             text-align: center;
-            padding: 40px 0;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 14px;
+            padding: 32px;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
         }
-
+        
         .footer a {
-            color: white;
+            color: var(--primary);
             text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                padding: 40px 24px;
+            }
+            
+            .header h1 {
+                font-size: 28px;
+            }
+            
+            .content {
+                padding: 40px 24px;
+            }
+            
+            .section h2 {
+                font-size: 24px;
+            }
         }
     </style>
 </head>
-
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="header-content">
-            <a href="index.html" class="logo">
-                <span>📄</span>
-                AiToWords
+    <div class="container">
+        <div class="header">
+            <h1>🔧 安装 AiToWords 浏览器插件</h1>
+            <p>一键导出 ChatGPT、DeepSeek、豆包、元宝等 AI 对话为 Word 文档</p>
+            <a href="downloads/AiToWords-v1.1.0.zip" class="download-btn" download>
+                <span>⬇️</span>
+                下载插件压缩包 (v1.1.0)
             </a>
-            <nav class="nav">
-                <a href="index.html">返回首页</a>
-                <a href="https://github.com/Huangyiyi-Li/ai2word" target="_blank">GitHub</a>
-            </nav>
         </div>
-    </header>
-
-    <!-- Main -->
-    <main class="main">
-        <div class="page-title">
-            <h1>安装 AiToWords 插件</h1>
-            <p>30秒完成安装，开始高效导出 AI 对话</p>
-        </div>
-
-        <div class="browser-tabs">
-            <button class="browser-tab active" onclick="switchBrowser('chrome')">Chrome 浏览器</button>
-            <button class="browser-tab" onclick="switchBrowser('edge')">Edge 浏览器</button>
-        </div>
-
-        <div class="card">
-            <!-- Step 1: Download -->
-            <div class="download-section">
-                <h2>第一步：下载插件包</h2>
-                <p style="color: var(--text-secondary); margin-bottom: 24px;">下载后请解压到任意文件夹（建议存放于不会误删的位置）</p>
-                <a href="AiToWords_Extension.zip" class="btn btn-primary btn-large">
-                    ⬇️ 下载插件压缩包 (.zip)
-                </a>
+        
+        <div class="content">
+            <div class="section">
+                <h2>📖 支持的 AI 平台</h2>
+                <div class="platform-grid">
+                    <div class="platform-card">
+                        <div class="icon">🤖</div>
+                        <div class="name">ChatGPT</div>
+                    </div>
+                    <div class="platform-card">
+                        <div class="icon">🧠</div>
+                        <div class="name">Claude</div>
+                    </div>
+                    <div class="platform-card">
+                        <div class="icon">💎</div>
+                        <div class="name">Gemini</div>
+                    </div>
+                    <div class="platform-card">
+                        <div class="icon">🦈</div>
+                        <div class="name">DeepSeek</div>
+                    </div>
+                    <div class="platform-card">
+                        <div class="icon">🫛</div>
+                        <div class="name">豆包</div>
+                    </div>
+                    <div class="platform-card">
+                        <div class="icon">💰</div>
+                        <div class="name">元宝</div>
+                    </div>
+                    <div class="platform-card">
+                        <div class="icon">📄</div>
+                        <div class="name">文心一言</div>
+                    </div>
+                    <div class="platform-card">
+                        <div class="icon">☁️</div>
+                        <div class="name">通义千问</div>
+                    </div>
+                    <div class="platform-card">
+                        <div class="icon">🌙</div>
+                        <div class="name">Kimi</div>
+                    </div>
+                    <div class="platform-card">
+                        <div class="icon">✨</div>
+                        <div class="name">Monica</div>
+                    </div>
+                </div>
             </div>
-
-            <!-- Steps -->
-            <div class="steps" id="chrome-steps">
-                <div class="step-item">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h3>打开扩展程序管理页面</h3>
-                        <p>在浏览器地址栏输入以下地址并回车，或通过菜单 "设置 -> 扩展程序" 进入。</p>
-                        <div class="code-box" onclick="copyText('chrome://extensions')">chrome://extensions</div>
-                    </div>
+            
+            <div class="section">
+                <h2>🚀 安装步骤</h2>
+                
+                <h3>Chrome 浏览器</h3>
+                <ol class="step-list">
+                    <li>
+                        <strong>下载插件压缩包</strong>
+                        点击上方"下载插件压缩包"按钮，下载 `AiToWords-v1.1.0.zip`
+                    </li>
+                    <li>
+                        <strong>解压缩文件</strong>
+                        将下载的压缩包解压缩到任意文件夹（记住这个位置）
+                    </li>
+                    <li>
+                        <strong>打开扩展管理页面</strong>
+                        在地址栏输入：
+                        <div class="code-block">chrome://extensions/</div>
+                    </li>
+                    <li>
+                        <strong>开启开发者模式</strong>
+                        点击页面右上角的"开发者模式"开关
+                    </li>
+                    <li>
+                        <strong>加载插件</strong>
+                        点击"加载已解压的扩展程序"按钮，选择刚才解压的文件夹
+                    </li>
+                    <li>
+                        <strong>开始使用</strong>
+                        安装成功后，浏览器右上角会出现 AiToWords 图标
+                    </li>
+                </ol>
+                
+                <h3>Edge 浏览器</h3>
+                <ol class="step-list">
+                    <li>
+                        <strong>下载并解压</strong>
+                        同 Chrome 步骤 1-2
+                    </li>
+                    <li>
+                        <strong>打开扩展页面</strong>
+                        <div class="code-block">edge://extensions/</div>
+                    </li>
+                    <li>
+                        <strong>开启开发人员模式</strong>
+                        点击左侧"开发人员模式"开关
+                    </li>
+                    <li>
+                        <strong>加载插件</strong>
+                        点击"加载解压缩的扩展"，选择解压的文件夹
+                    </li>
+                </ol>
+                
+                <div class="notice-box">
+                    <strong>⚠️ 注意：</strong>
+                    <p>• 插件仅从官方渠道发布，请勿从不明来源下载</p>
+                    <p>• 首次安装后可能需要刷新 AI 平台页面</p>
+                    <p>• 如遇问题，请尝试重新加载插件或重启浏览器</p>
                 </div>
-
-                <div class="step-item">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h3>开启开发者模式</h3>
-                        <p>在页面右上角，找到并开启 "开发者模式" (Developer mode) 开关。</p>
-                    </div>
-                </div>
-
-                <div class="step-item">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                        <h3>加载已解压的扩展程序</h3>
-                        <p>点击左上角的 "加载已解压的扩展程序" (Load unpacked) 按钮，选择第一步中解压得到的 <strong>Extension</strong> 文件夹。</p>
-                        <div class="step-image">
-                            📂 选择文件夹：<br>
-                            &nbsp;&nbsp;└── 📁 AiToWords_Extension<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── 📁 extension <-- 选择这个文件夹 </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="steps" id="edge-steps" style="display: none;">
-                    <div class="step-item">
-                        <div class="step-number">2</div>
-                        <div class="step-content">
-                            <h3>打开扩展管理页面</h3>
-                            <p>在浏览器地址栏输入以下地址并回车，或通过菜单 "扩展" 进入。</p>
-                            <div class="code-box" onclick="copyText('edge://extensions')">edge://extensions</div>
-                        </div>
-                    </div>
-
-                    <div class="step-item">
-                        <div class="step-number">3</div>
-                        <div class="step-content">
-                            <h3>开启开发者模式</h3>
-                            <p>在左侧菜单栏下方（或页面顶部），开启 "开发人员模式" 开关。</p>
-                        </div>
-                    </div>
-
-                    <div class="step-item">
-                        <div class="step-number">4</div>
-                        <div class="step-content">
-                            <h3>加载解压缩的扩展</h3>
-                            <p>点击 "加载解压缩的扩展" 按钮，选择第一步中解压得到的 <strong>Extension</strong> 文件夹。</p>
-                            <div class="step-image">
-                                📂 选择文件夹：<br>
-                                &nbsp;&nbsp;└── 📁 AiToWords_Extension<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── 📁 extension <-- 选择这个文件夹 </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div
-                        style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border);">
-                        <p style="color: var(--success); font-weight: 600; font-size: 18px;">
-                            🎉 安装完成！现在打开 ChatGPT 或 DeepSeek 页面即可看到侧边栏图标。
-                        </p>
-                    </div>
-                </div>
-
-    </main>
-
-    <footer class="footer">
-        <p>AiToWords - 免费开源的 Markdown 转 Word 工具</p>
-    </footer>
-
+            </div>
+            
+            <div class="section">
+                <h2>✨ 功能特点</h2>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 12px 0; border-bottom: 1px solid var(--border);">
+                        <strong>📐 完美保留 LaTeX 公式</strong>
+                        <p>数学公式自动转为 Word 原生公式，可编辑</p>
+                    </li>
+                    <li style="padding: 12px 0; border-bottom: 1px solid var(--border);">
+                        <strong>📊 Mermaid 图表支持</strong>
+                        <p>流程图、时序图自动渲染为图片</p>
+                    </li>
+                    <li style="padding: 12px 0; border-bottom: 1px solid var(--border);">
+                        <strong>💻 代码高亮</strong>
+                        <p>支持 50+ 种编程语言的语法高亮</p>
+                    </li>
+                    <li style="padding: 12px 0; border-bottom: 1px solid var(--border);">
+                        <strong>🔒 隐私安全</strong>
+                        <p>所有处理在本地完成，数据不上传</p>
+                    </li>
+                    <li style="padding: 12px 0;">
+                        <strong>🆓 完全免费</strong>
+                        <p>开源项目，无任何费用</p>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>❓ 常见问题</h2>
+                
+                <h3>Q: 插件安全吗？</h3>
+                <p>完全安全。AiToWords 是开源项目，所有代码都在 GitHub 公开。插件只在本地处理数据，不会上传任何信息。</p>
+                
+                <h3>Q: 为什么需要开发者模式？</h3>
+                <p>因为插件还未上架 Chrome Web Store。开发者模式允许安装本地插件。一旦上架商店，就可以直接安装，无需开发者模式。</p>
+                
+                <h3>Q: 支持哪些浏览器？</h3>
+                <p>目前支持所有基于 Chromium 的浏览器：Chrome、Edge、Brave、Opera 等。Firefox 支持正在开发中。</p>
+                
+                <h3>Q: 如何更新插件？</h3>
+                <p>重新下载最新版本的压缩包，解压后在扩展管理页面点击"重新加载"按钮。</p>
+                
+                <h3>Q: 遇到问题怎么办？</h3>
+                <p>请在 GitHub 提交 Issue：<a href="https://github.com/Huangyiyi-Li/ai2word/issues" target="_blank">https://github.com/Huangyiyi-Li/ai2word/issues</a></p>
+            </div>
+            
+            <div class="success-box">
+                <strong>✅ 安装成功后</strong>
+                <p>• 访问 ChatGPT/DeepSeek/豆包/元宝等 AI 平台</p>
+                <p>• 点击浏览器右上角的 AiToWords 图标</p>
+                <p>• 选择对话内容，一键导出为 Word 文档</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>
+                <a href="/">← 返回首页</a> · 
+                <a href="https://github.com/Huangyiyi-Li/ai2word" target="_blank">GitHub</a> · 
+                <a href="privacy.html">隐私政策</a> · 
+                <a href="contact.html">联系我们</a>
+            </p>
+            <p style="margin-top: 12px; color: var(--text-secondary); font-size: 14px;">
+                AiToWords - 免费开源的 AI 对话导出工具
+            </p>
+        </div>
+    </div>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-71C191VNS7"></script>
     <script>
-        function switchBrowser(browser) {
-            const chromeSteps = document.getElementById('chrome-steps');
-            const edgeSteps = document.getElementById('edge-steps');
-            const tabs = document.querySelectorAll('.browser-tab');
-
-            tabs.forEach(tab => tab.classList.remove('active'));
-
-            if (browser === 'chrome') {
-                chromeSteps.style.display = 'block';
-                edgeSteps.style.display = 'none';
-                tabs[0].classList.add('active');
-            } else {
-                chromeSteps.style.display = 'none';
-                edgeSteps.style.display = 'block';
-                tabs[1].classList.add('active');
-            }
-        }
-
-        function copyText(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                alert('地址已复制！请在浏览器地址栏粘贴进入。');
-            });
-        }
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-71C191VNS7');
     </script>
 </body>
-
 </html>
