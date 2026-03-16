@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepSeek 对话导出为 Word 文档 | 完整教程（保留公式/代码）</title>
+    <meta name="description" content="教你如何将DeepSeek对话导出为Word文档，保留LaTeX公式、代码高亮、表格格式。免费在线工具，3步完成转换。">
+    <meta name="keywords" content="DeepSeek导出Word,DeepSeek转Word,DeepSeek对话导出,DeepSeek保存,DeepSeek转docx">
+    <link rel="canonical" href="https://www.aitowords.com/deepseek-to-word.html">
+    <link rel="icon" type="image/png" href="extension/icons/icon128.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --border: #e2e8f0;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.8;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            background: var(--bg-primary);
+            min-height: 100vh;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 24px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+        
+        .meta {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 32px;
+        }
+        
+        h2 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-top: 40px;
+            margin-bottom: 16px;
+        }
+        
+        h3 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-top: 32px;
+            margin-bottom: 12px;
+        }
+        
+        p {
+            margin-bottom: 16px;
+            color: var(--text-secondary);
+        }
+        
+        ul, ol {
+            margin-bottom: 16px;
+            padding-left: 24px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+        
+        .step-box {
+            background: var(--bg-secondary);
+            border-left: 4px solid var(--primary);
+            padding: 24px;
+            margin: 24px 0;
+            border-radius: 8px;
+        }
+        
+        .step-box h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+        
+        .highlight-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--primary);
+            padding: 16px;
+            margin: 24px 0;
+        }
+        
+        .cta-box {
+            background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%);
+            color: white;
+            padding: 32px;
+            border-radius: 16px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .cta-box h2 {
+            color: white;
+            margin-top: 0;
+        }
+        
+        .cta-box p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 14px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 16px;
+        }
+        
+        code {
+            background: #f1f5f9;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 14px;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 24px 0;
+        }
+        
+        .feature-item {
+            background: var(--bg-secondary);
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        
+        .feature-item strong {
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 24px 16px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link">← 返回首页</a>
+        
+        <h1>DeepSeek 对话导出为 Word 文档 | 完整教程（保留公式/代码）</h1>
+        
+        <div class="meta">
+            更新时间：2026年3月16日 | 阅读时间：4分钟
+        </div>
+        
+        <p><strong>DeepSeek</strong> 是国产大模型的佼佼者，但很多用户发现：DeepSeek 生成的精彩对话，无法直接导出为 Word 文档。复制粘贴后，数学公式、代码块、表格全部格式丢失。</p>
+        
+        <p>本文将教你 <strong>3 步将 DeepSeek 对话完美导出为 Word</strong>，保留所有格式。</p>
+        
+        <h2>为什么直接复制会丢失格式？</h2>
+        
+        <p>DeepSeek 使用 <strong>Markdown</strong> 格式渲染内容，而 Word 使用富文本格式。直接复制时：</p>
+        
+        <ul>
+            <li>❌ LaTeX 公式（<code>$E=mc^2$</code>）变成纯文本</li>
+            <li>❌ 代码块丢失高亮和等宽字体</li>
+            <li>❌ 表格格式错乱</li>
+            <li>❌ Mermaid 流程图无法显示</li>
+        </ul>
+        
+        <p>解决方案：使用 <strong>AiToWords</strong> 将 Markdown 转为 Word 原生格式。</p>
+        
+        <h2>导出步骤（3步完成）</h2>
+        
+        <div class="step-box">
+            <h3>第 1 步：复制 DeepSeek 对话</h3>
+            <ol>
+                <li>在 DeepSeek 对话中，选中需要导出的内容</li>
+                <li>按 <code>Ctrl+C</code> (Windows) 或 <code>Cmd+C</code> (Mac) 复制</li>
+                <li>💡 <strong>小技巧</strong>：DeepSeek 支持"复制 Markdown"，点击消息右上角的复制按钮即可</li>
+            </ol>
+        </div>
+        
+        <div class="step-box">
+            <h3>第 2 步：粘贴到 AiToWords</h3>
+            <ol>
+                <li>打开 <a href="https://www.aitowords.com" style="color: var(--primary); font-weight: 600;">AiToWords.com</a></li>
+                <li>将复制的内容粘贴到左侧编辑器</li>
+                <li>右侧会实时预览转换效果</li>
+            </ol>
+        </div>
+        
+        <div class="step-box">
+            <h3>第 3 步：导出 Word 文档</h3>
+            <ol>
+                <li>确认预览效果符合预期</li>
+                <li>点击"⬇️ 导出 Word"按钮</li>
+                <li>下载 <code>.docx</code> 文件，完成！</li>
+            </ol>
+        </div>
+        
+        <h2>支持哪些格式？</h2>
+        
+        <div class="feature-grid">
+            <div class="feature-item">
+                <strong>📐 LaTeX 数学公式</strong>
+                行内公式和块级公式，转为 Word 原生公式，可编辑
+            </div>
+            <div class="feature-item">
+                <strong>💻 代码高亮</strong>
+                支持 50+ 种语言，保留等宽字体和语法高亮
+            </div>
+            <div class="feature-item">
+                <strong>📊 表格</strong>
+                Markdown 表格完美转为 Word 表格，可编辑
+            </div>
+            <div class="feature-item">
+                <strong>🖼️ Mermaid 图表</strong>
+                流程图、时序图、甘特图自动渲染为图片
+            </div>
+            <div class="feature-item">
+                <strong>📝 标题与列表</strong>
+                H1-H6 标题、有序/无序列表完整保留
+            </div>
+            <div class="feature-item">
+                <strong>🔗 超链接</strong>
+                Markdown 链接转为 Word 可点击链接
+            </div>
+        </div>
+        
+        <h2>为什么选择 AiToWords？</h2>
+        
+        <div class="highlight-box">
+            <strong>✅ 完全免费</strong> - 开源项目，无任何费用<br>
+            <strong>✅ 隐私安全</strong> - 纯浏览器端处理，数据不上传<br>
+            <strong>✅ 无需注册</strong> - 打开即用，3 秒完成<br>
+            <strong>✅ 格式完整</strong> - LaTeX/Mermaid/代码全支持
+        </div>
+        
+        <h2>常见问题</h2>
+        
+        <h3>Q1: DeepSeek 支持直接导出 Word 吗？</h3>
+        <p>目前 DeepSeek 官方只支持复制 Markdown 文本，不支持直接导出 Word。需要借助 AiToWords 等转换工具。</p>
+        
+        <h3>Q2: 转换后的文档可以在 WPS 中打开吗？</h3>
+        <p>可以！AiToWords 生成的是标准 <code>.docx</code> 格式，兼容 Word、WPS、Google Docs 等所有主流文档软件。</p>
+        
+        <h3>Q3: 一次可以导出多少内容？</h3>
+        <p>理论上没有限制。但由于浏览器性能考虑，建议单次导出不超过 <strong>10,000 行</strong>。超长对话可以分段导出。</p>
+        
+        <h3>Q4: 转换速度如何？</h3>
+        <p>非常快！普通文档（1000 行以内）<strong>1 秒内完成</strong>。包含大量 Mermaid 图表的文档可能需要 3-5 秒。</p>
+        
+        <div class="cta-box">
+            <h2>立即体验</h2>
+            <p>免费、快速、无需注册，完美保留 DeepSeek 对话格式</p>
+            <a href="/" class="cta-button">开始转换 →</a>
+        </div>
+        
+        <div style="margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border);">
+            <p style="font-size: 14px; color: var(--text-secondary);">
+                📚 相关教程：
+                <a href="chatgpt-to-word.html" style="color: var(--primary);">ChatGPT 导出教程</a> ·
+                <a href="claude-to-word.html" style="color: var(--primary);">Claude 导出教程</a> ·
+                <a href="latex-formula-word.html" style="color: var(--primary);">LaTeX 公式导出</a>
+            </p>
+        </div>
+    </div>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-71C191VNS7"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-71C191VNS7');
+    </script>
+</body>
+</html>
