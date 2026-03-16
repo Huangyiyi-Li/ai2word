@@ -1,4 +1,47 @@
+# robots.txt for AiToWords
+# https://www.aitowords.com
+
+# 允许所有搜索引擎抓取
 User-agent: *
 Allow: /
 
+# 禁止抓取的路径（如果有）
+# Disallow: /admin/
+# Disallow: /api/
+# Disallow: /private/
+
+# Sitemap 位置
 Sitemap: https://www.aitowords.com/sitemap.xml
+
+# 爬虫延迟（秒）
+Crawl-delay: 1
+
+# 针对特定搜索引擎的规则
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 1
+
+User-agent: Sogou
+Allow: /
+Crawl-delay: 2
+
+# 禁止恶意爬虫
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+# 主机
+Host: https://www.aitowords.com
