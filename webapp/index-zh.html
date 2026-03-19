@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AiToWords - 免费AI对话转Word工具 | 支持ChatGPT/DeepSeek/豆包/元宝等</title>
+    <meta name="description"
+        content="AiToWords 是一款免费在线工具，支持 ChatGPT、DeepSeek、豆包、元宝、文心一言、通义千问、 Kimi 等 AI 对话内容导出为 Word 文档。完美保留 LaTeX 公式、Mermaid 图表、代码高亮及 Markdown 格式。隐私安全，纯浏览器端处理。">
+    <meta name="keywords"
+        content="AiToWords,AI对话转Word,ChatGPT导出Word,DeepSeek导出,豆包导出,元宝导出,文心一言导出,通义千问导出,Kimi导出,Markdown转Word,免费转换工具">
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4938450453056753"
+        crossorigin="anonymous"></script>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.aitowords.com/">
+    <meta property="og:title" content="AiToWords - 免费AI对话转Word工具 | 支持ChatGPT/DeepSeek/豆包/元宝等">
+    <meta property="og:description" content="AiToWords 是一款免费在线工具，支持 ChatGPT、DeepSeek、豆包、元宝、文心一言、通义千问、 Kimi 等 AI 对话内容导出为 Word 文档。完美保留 LaTeX 公式、Mermaid 图表、代码高亮及 Markdown 格式。隐私安全，纯浏览器端处理。">
+    <meta property="og:image" content="https://www.aitowords.com/assets/og-image.png">
+    <meta property="og:locale" content="zh_CN">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://www.aitowords.com/">
+    <meta name="twitter:title" content="AiToWords - 免费AI对话转Word工具">
+    <meta name="twitter:description" content="AiToWords 是一款免费在线工具，支持 ChatGPT、DeepSeek、豆包、元宝、文心一言、通义千问、 Kimi 等 AI 对话内容导出为 Word 文档。完美保留 LaTeX 公式、Mermaid 图表、代码高亮及 Markdown 格式。隐私安全，纯浏览器端处理。">
+    <meta name="twitter:image" content="https://www.aitowords.com/assets/og-image.png">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://www.aitowords.com/">
+
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "AiToWords",
+            "applicationCategory": "ProductivityApplication",
+            "operatingSystem": "Web",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+            },
+            "description": "AiToWords 是一个免费在线工具，专为将ChatGPT、DeepSeek、Claude等AI对话内容导出为Word文档设计。保留LaTeX公式和图表。"
+        }
+    </script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [{
+                "@type": "Question",
+                "name": "这需要收费吗？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "完全免费。AiToWords 是一个开源项目，您可以免费使用所有功能。"
+                }
+            }, {
+                "@type": "Question",
+                "name": "数据安全吗？会上传我的对话吗？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "绝对安全。所有转换过程都在您的浏览器本地完成，不会将任何数据上传到服务器。"
+                }
+            }, {
+                "@type": "Question",
+                "name": "支持哪些 AI 平台？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "支持国内外主流 AI 平台：ChatGPT、Claude、Gemini、DeepSeek、豆包、元宝、文心一言、通义千问、 Kimi 等。理论上支持所有 AI 平台的 Markdown 内容，并针对上述平台进行了专门优化。"
+                }
+            }]
+        }
+    </script>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="extension/icons/icon128.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --primary-light: rgba(79, 70, 229, 0.1);
+            --secondary: #7c3aed;
+            --success: #10b981;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-dark: #0f172a;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --border: #e2e8f0;
+            --radius: 12px;
+            --radius-lg: 16px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.2s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav a:hover {
+            color: var(--primary);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+
+        /* Main Content */
+        .main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 40px 0 32px;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero p {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 24px;
+        }
+
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            opacity: 0.95;
+        }
+
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Editor Section */
+        .editor-container {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+        }
+
+        .editor-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .editor-tabs {
+            display: flex;
+            gap: 8px;
+        }
+
+        .editor-tab {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+        }
+
+        .editor-tab.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: var(--shadow);
+        }
+
+        .editor-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .editor-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 500px;
+        }
+
+        @media (max-width: 768px) {
+            .editor-body {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .editor-pane {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .editor-pane:first-child {
+            border-right: 1px solid var(--border);
+        }
+
+        .pane-header {
+            padding: 12px 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .editor-textarea {
+            flex: 1;
+            width: 100%;
+            padding: 20px;
+            border: none;
+            outline: none;
+            resize: none;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            line-height: 1.7;
+            background: var(--bg-primary);
+        }
+
+        .preview-area {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            line-height: 1.8;
+        }
+
+        .preview-area h1,
+        .preview-area h2,
+        .preview-area h3 {
+            margin-top: 24px;
+            margin-bottom: 12px;
+        }
+
+        .preview-area h1 {
+            font-size: 28px;
+        }
+
+        .preview-area h2 {
+            font-size: 24px;
+        }
+
+        .preview-area h3 {
+            font-size: 20px;
+        }
+
+        .preview-area p {
+            margin-bottom: 16px;
+        }
+
+        .preview-area code {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            font-size: 13px;
+        }
+
+        .preview-area pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+
+        .preview-area pre code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+
+        .preview-area blockquote {
+            border-left: 4px solid var(--primary);
+            padding-left: 16px;
+            margin: 16px 0;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .preview-area table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+        }
+
+        .preview-area th,
+        .preview-area td {
+            border: 1px solid var(--border);
+            padding: 10px 14px;
+            text-align: left;
+        }
+
+        .preview-area th {
+            background: var(--bg-secondary);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 24px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Examples */
+        .examples {
+            display: flex;
+            gap: 8px;
+        }
+
+        .example-btn {
+            padding: 6px 12px;
+            font-size: 12px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .example-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Loading spinner */
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Drop zone */
+        .drop-zone {
+            border: 2px dashed var(--border);
+            border-radius: var(--radius);
+            padding: 40px;
+            text-align: center;
+            color: var(--text-muted);
+            transition: var(--transition);
+            display: none;
+        }
+
+        .drop-zone.active {
+            display: block;
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .editor-textarea.dragging {
+            opacity: 0.5;
+        }
+
+        /* FAQ Section */
+        .faq-container {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            padding: 40px;
+            margin-top: 40px;
+        }
+
+        .faq-title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            color: var(--text-primary);
+        }
+
+        .faq-item {
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 24px;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        .faq-question {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .faq-answer {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <span>📄</span>
+                AiToWords
+                <span id="versionBadge" style="font-size: 11px; color: var(--text-secondary); margin-left: 8px; font-weight: 500; background: var(--bg-secondary); padding: 2px 8px; border-radius: 4px;">加载中...</span>
+            </a>
+            <nav class="nav">
+                <a href="#examples" data-i18n="examples">示例</a>
+                <a href="https://github.com/Huangyiyi-Li/ai2word" target="_blank">GitHub</a>
+                <button class="btn btn-secondary" style="margin-right:8px; padding: 12px;"
+                    onclick="toggleLanguage()">🌐</button>
+                <a href="install.html" class="btn btn-secondary" id="installExtension" data-i18n="installExt">
+                    🔌 安装插件
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1 data-i18n="heroTitle">AiToWords: Markdown 转 Word</h1>
+        <p data-i18n="heroDesc">免费在线转换工具，支持 LaTeX 公式、Mermaid 图表、代码高亮。纯浏览器处理，无需上传。</p>
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">📐</div>
+                <span data-i18n="featLatex">LaTeX 公式</span>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📊</div>
+                <span data-i18n="featMermaid">Mermaid 图表</span>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">💻</div>
+                <span data-i18n="featCode">代码高亮</span>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔒</div>
+                <span data-i18n="featPrivacy">隐私安全</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Editor -->
+    <main class="main">
+        <div class="editor-container">
+            <div class="editor-header">
+                <div class="editor-tabs">
+                    <button class="editor-tab active" data-i18n="tabEditor">编辑器</button>
+                </div>
+                <div class="editor-actions">
+                    <button class="btn btn-secondary" id="settingsToggle" title="导出设置">⚙️ 设置</button>
+                    <button class="btn btn-secondary" id="clearBtn" data-i18n="clearBtn">清空</button>
+                    <button class="btn btn-primary" id="exportBtn" data-i18n="exportBtn">
+                        ⬇️ 导出 Word
+                    </button>
+                </div>
+            </div>
+
+            <div class="editor-body">
+                <!-- Input Pane -->
+                <div class="editor-pane">
+                    <div class="pane-header">
+                        <span data-i18n="inputHeader">Markdown 输入</span>
+                        <div class="examples">
+                            <button class="example-btn" data-example="basic">基础示例</button>
+                            <button class="example-btn" data-example="table">表格</button>
+                            <button class="example-btn" data-example="code">代码</button>
+                        </div>
+                    </div>
+                    <textarea id="markdownInput" class="editor-textarea" data-i18n="placeholder" placeholder="在此输入或粘贴 Markdown 内容...
+
+支持拖拽 .md 文件到此处"></textarea>
+                </div>
+
+                <!-- Preview Pane -->
+                <div class="editor-pane">
+                    <div class="pane-header">
+                        <span data-i18n="previewHeader">预览</span>
+                    </div>
+                    <div id="previewArea" class="preview-area">
+                        <p style="color: var(--text-muted);" data-i18n="previewHint">输入内容后将在此显示预览...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 设置面板 -->
+            <div id="settingsPanel"
+                style="display:none; position:absolute; top:60px; right:0; z-index:100; padding:20px; background:var(--bg-primary); border:1px solid var(--border); border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.15); min-width:300px;">
+                <h3 style="font-size:16px; margin-bottom:16px; color:var(--text-primary);">📝 导出设置</h3>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                    <label
+                        style="display:flex; align-items:center; gap:8px; padding:10px; border-radius:8px; background:white; cursor:pointer; border:1px solid var(--border);">
+                        <input type="checkbox" id="webSettingPreserveHeadingStyle" checked
+                            style="width:18px; height:18px; accent-color:var(--primary);">
+                        <div>
+                            <div style="font-size:13px; font-weight:500;">保留标题样式</div>
+                            <div style="font-size:11px; color:var(--text-muted);">标题中的粗体/斜体同步到 Word</div>
+                        </div>
+                    </label>
+                    <label
+                        style="display:flex; align-items:center; gap:8px; padding:10px; border-radius:8px; background:white; cursor:pointer; border:1px solid var(--border);">
+                        <input type="checkbox" id="webSettingPreserveBold" checked
+                            style="width:18px; height:18px; accent-color:var(--primary);">
+                        <div>
+                            <div style="font-size:13px; font-weight:500;">保留粗体</div>
+                            <div style="font-size:11px; color:var(--text-muted);">**粗体** 同步到 Word</div>
+                        </div>
+                    </label>
+                    <label
+                        style="display:flex; align-items:center; gap:8px; padding:10px; border-radius:8px; background:white; cursor:pointer; border:1px solid var(--border);">
+                        <input type="checkbox" id="webSettingPreserveItalic" checked
+                            style="width:18px; height:18px; accent-color:var(--primary);">
+                        <div>
+                            <div style="font-size:13px; font-weight:500;">保留斜体</div>
+                            <div style="font-size:11px; color:var(--text-muted);">*斜体* 同步到 Word</div>
+                        </div>
+                    </label>
+                    <label
+                        style="display:flex; align-items:center; gap:8px; padding:10px; border-radius:8px; background:white; cursor:pointer; border:1px solid var(--border);">
+                        <input type="checkbox" id="webSettingRemoveExtraSpaces"
+                            style="width:18px; height:18px; accent-color:var(--primary);">
+                        <div>
+                            <div style="font-size:13px; font-weight:500;">去除多余空格</div>
+                            <div style="font-size:11px; color:var(--text-muted);">去除标点前 AI 加的空格</div>
+                        </div>
+                    </label>
+                    <label
+                        style="display:flex; align-items:center; gap:8px; padding:10px; border-radius:8px; background:white; cursor:pointer; border:1px solid var(--border);">
+                        <input type="checkbox" id="webSettingBlockquoteItalic" checked
+                            style="width:18px; height:18px; accent-color:var(--primary);">
+                        <div>
+                            <div style="font-size:13px; font-weight:500;">引用斜体</div>
+                            <div style="font-size:11px; color:var(--text-muted);">blockquote 以斜体显示</div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="faq-container">
+            <h2 class="faq-title" data-i18n="faqTitle">常见问题</h2>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>💰</span>
+                    <span data-i18n="faqQ1">这需要收费吗？</span>
+                </div>
+                <p class="faq-answer" data-i18n="faqA1">完全免费。AiToWords 是一个开源项目，您可以免费使用所有功能。</p>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>🔒</span>
+                    <span data-i18n="faqQ2">数据安全吗？</span>
+                </div>
+                <p class="faq-answer" data-i18n="faqA2">绝对安全。所有转换过程都在您的浏览器本地完成，不会将任何数据上传到服务器。</p>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>🤖</span>
+                    <span data-i18n="faqQ3">支持哪些 AI 平台？</span>
+                </div>
+                <p class="faq-answer" data-i18n="faqA3">理论上支持所有 AI 平台的 Markdown 内容。我们专门优化了 ChatGPT、DeepSeek、Claude 和
+                    Gemini 的导出效果。</p>
+            </div>
+        </div>
+
+        <!-- How to Use Section -->
+        <div class="faq-container" style="margin-top: 24px;">
+            <h2 class="faq-title" data-i18n="howtoTitle">如何使用</h2>
+            <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; text-align: center;">
+                <div style="flex: 1; min-width: 200px;">
+                    <div style="font-size: 32px; margin-bottom: 12px;">📋</div>
+                    <h3 style="font-size: 18px; margin-bottom: 8px;">1. 复制</h3>
+                    <p style="color: var(--text-secondary);">从 ChatGPT、DeepSeek 或 Claude 复制 Markdown 内容。</p>
+                </div>
+                <div style="flex: 1; min-width: 200px;">
+                    <div style="font-size: 32px; margin-bottom: 12px;">📝</div>
+                    <h3 style="font-size: 18px; margin-bottom: 8px;">2. 粘贴</h3>
+                    <p style="color: var(--text-secondary);">将内容粘贴到 AiToWords 编辑器中，实时预览效果。</p>
+                </div>
+                <div style="flex: 1; min-width: 200px;">
+                    <div style="font-size: 32px; margin-bottom: 12px;">⬇️</div>
+                    <h3 style="font-size: 18px; margin-bottom: 8px;">3. 导出</h3>
+                    <p style="color: var(--text-secondary);">点击导出按钮，立即获得格式完美的 Word 文档。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 工具详细介绍 -->
+        <div class="faq-container" style="margin-top: 24px;">
+            <h2 class="faq-title" style="font-size:26px;">🛠️ 为什么选择 AiToWords？</h2>
+            <div style="color: var(--text-secondary); line-height: 1.9; font-size: 15px;">
+                <p>在 AI 工具普及的今天，越来越多的用户需要将 ChatGPT、DeepSeek、Claude、Gemini 等 AI 助手生成的内容转换为正式的 Word 文档（.docx）。然而，直接从 AI
+                    界面复制粘贴到 Word，往往会丢失以下格式：</p>
+                <ul style="margin: 16px 0 16px 20px;">
+                    <li style="margin-bottom:8px;">📐 <strong>LaTeX 数学公式</strong>（如 <code>$E=mc^2$</code>）变成乱码或纯文本</li>
+                    <li style="margin-bottom:8px;">📊 <strong>Mermaid 流程图、时序图</strong>无法正常显示</li>
+                    <li style="margin-bottom:8px;">💻 <strong>代码块</strong>丢失等宽字体和语法高亮</li>
+                    <li style="margin-bottom:8px;">📝 <strong>表格、列表、引用</strong>格式错乱</li>
+                    <li style="margin-bottom:8px;"><strong>标题层级</strong>变成普通段落文本</li>
+                </ul>
+                <p><strong>AiToWords 正是为了解决这些问题而生。</strong>它在浏览器本地将 Markdown 格式的 AI 输出精准转换为格式完整的 Word
+                    文档，全程无需上传任何内容到服务器，保护您的数据隐私。</p>
+
+                <h3 style="font-size:18px; font-weight:600; color:var(--text-primary); margin: 28px 0 14px;">✅ 支持的
+                    Markdown 语法</h3>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:16px;">
+                    <div
+                        style="padding:10px 14px; background:var(--bg-secondary); border-radius:8px; border:1px solid var(--border); font-size:14px;">
+                        📌 六级标题（H1–H6）</div>
+                    <div
+                        style="padding:10px 14px; background:var(--bg-secondary); border-radius:8px; border:1px solid var(--border); font-size:14px;">
+                        **粗体** 与 *斜体*</div>
+                    <div
+                        style="padding:10px 14px; background:var(--bg-secondary); border-radius:8px; border:1px solid var(--border); font-size:14px;">
+                        有序列表 / 无序列表</div>
+                    <div
+                        style="padding:10px 14px; background:var(--bg-secondary); border-radius:8px; border:1px solid var(--border); font-size:14px;">
+                        代码块（多语言高亮）</div>
+                    <div
+                        style="padding:10px 14px; background:var(--bg-secondary); border-radius:8px; border:1px solid var(--border); font-size:14px;">
+                        📊 Markdown 表格</div>
+                    <div
+                        style="padding:10px 14px; background:var(--bg-secondary); border-radius:8px; border:1px solid var(--border); font-size:14px;">
+                        📐 LaTeX 数学公式</div>
+                    <div
+                        style="padding:10px 14px; background:var(--bg-secondary); border-radius:8px; border:1px solid var(--border); font-size:14px;">
+                        🖼️ Mermaid 图表（流程图等）</div>
+                    <div
+                        style="padding:10px 14px; background:var(--bg-secondary); border-radius:8px; border:1px solid var(--border); font-size:14px;">
+                        &gt; 引用块（Blockquote）</div>
+                    <div
+                        style="padding:10px 14px; background:var(--bg-secondary); border-radius:8px; border:1px solid var(--border); font-size:14px;">
+                        分隔线（---）</div>
+                    <div
+                        style="padding:10px 14px; background:var(--bg-secondary); border-radius:8px; border:1px solid var(--border); font-size:14px;">
+                        行内代码（`code`）</div>
+                </div>
+
+                <h3 style="font-size:18px; font-weight:600; color:var(--text-primary); margin: 28px 0 14px;">👥 适合哪些用户？
+                </h3>
+                <p><strong>学生与研究者：</strong>用 AI 辅助写论文、报告后，使用 AiToWords 一键转为格式规范的 Word 文档，轻松符合学术提交要求，LaTeX 公式完整保留。</p>
+                <p><strong>职场办公人员：</strong>将 AI 生成的方案、总结、PPT 大纲整理为标准 Word 格式，快速完成工作文档，无需手动重排版式。</p>
+                <p><strong>开发者与技术写作者：</strong>包含代码块、技术图表的 AI 对话内容，可以完整保留代码高亮并导出为专业技术文档。</p>
+
+                <h3 style="font-size:18px; font-weight:600; color:var(--text-primary); margin: 28px 0 14px;">🔒 隐私承诺
+                </h3>
+                <p>AiToWords
+                    所有的转换逻辑均在您的浏览器本地运行，<strong>不会将您的任何数据发送到服务器</strong>。您可以放心粘贴包含敏感信息的对话内容。我们没有后端服务器，没有数据库，无法也不会存储您的任何内容。
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p data-i18n="footerText">AiToWords - 免费开源的 Markdown 转 Word 工具</p>
+        <p style="margin-top: 8px; margin-bottom: 16px; font-size: 14px;">
+            📚 教程：
+            <a href="chatgpt-to-word.html" style="color: var(--text-secondary); margin-left: 8px;">ChatGPT</a> ·
+            <a href="deepseek-to-word.html" style="color: var(--text-secondary); margin-left: 8px;">DeepSeek</a> ·
+            <a href="claude-to-word.html" style="color: var(--text-secondary); margin-left: 8px;">Claude</a> ·
+            <a href="doubao-to-word.html" style="color: var(--text-secondary); margin-left: 8px;">豆包</a> ·
+            <a href="yuanbao-to-word.html" style="color: var(--text-secondary); margin-left: 8px;">元宝</a> ·
+            <a href="wenxin-to-word.html" style="color: var(--text-secondary); margin-left: 8px;">文心一言</a> ·
+            <a href="tongyi-to-word.html" style="color: var(--text-secondary); margin-left: 8px;">通义千问</a> ·
+            <a href="kimi-to-word.html" style="color: var(--text-secondary); margin-left: 8px;">Kimi</a> ·
+            <a href="latex-formula-word.html" style="color: var(--text-secondary); margin-left: 8px;">LaTeX公式</a> ·
+            <a href="batch-export.html" style="color: var(--text-secondary); margin-left: 8px;">批量处理</a> ·
+            <a href="install.html" style="color: var(--text-secondary); margin-left: 8px;">安装插件</a>
+        </p>
+        <p style="margin-top: 8px;">
+            <a href="https://github.com/Huangyiyi-Li/ai2word" target="_blank">GitHub</a> ·
+            <a href="privacy.html" target="_blank" style="margin-left: 8px;">隐私政策</a> ·
+            <a href="contact.html" style="margin-left: 8px;">联系我们</a> ·
+            Made with ❤️
+        </p>
+    </footer>
+
+    <!-- docx.js CDN -->
+    <script src="lib/docx.min.js"></script>
+    <!-- JSZip for modifying DOCX -->
+    <script src="lib/jszip.min.js"></script>
+    <!-- Temml for LaTeX to MathML -->
+    <script src="lib/temml.min.js"></script>
+
+
+    <!-- Optional: Mermaid for diagrams -->
+    <script src="lib/mermaid.min.js"></script>
+    <!-- Optional: HTML to Markdown -->
+    <!-- Html2md -->
+    <script src="lib/html-to-md.js"></script>
+
+    <!-- i18n -->
+    <script src="lib/i18n.js"></script>
+
+    <!-- Core Converter Logic -->
+    <script src="lib/converter.js"></script>
+
+    <!-- marked.js for Markdown preview -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <script>
+        // DOM Elements
+        const markdownInput = document.getElementById('markdownInput');
+        const previewArea = document.getElementById('previewArea');
+        const exportBtn = document.getElementById('exportBtn');
+        const clearBtn = document.getElementById('clearBtn');
+
+        // 示例内容
+        const examples = {
+            basic: `# 欢迎使用 MD2Word
+
+这是一个 **Markdown** 转 *Word* 的在线工具。
+
+## 主要特性
+
+- 支持标题、列表、引用
+- 支持 **粗体** 和 *斜体*
+- 支持 \`行内代码\`
+
+> 这是一段引用文字
+> 可以跨越多行
+
+---
+
+感谢使用！`,
+
+            table: `# 表格示例
+
+| 功能 | 支持状态 | 说明 |
+|------|----------|------|
+| 基础 Markdown | ✅ | 标题、列表、引用等 |
+| 表格 | ✅ | GFM 表格语法 |
+| 代码块 | ✅ | 多语言高亮 |
+| LaTeX | ✅ | 数学公式 |`,
+
+            code: `# 代码示例
+
+## JavaScript
+
+\`\`\`javascript
+function greet(name) {
+  console.log(\`Hello, \${name}!\`);
+}
+
+greet('World');
+\`\`\`
+
+## Python
+
+\`\`\`python
+def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+print(fibonacci(10))
+\`\`\``
+        };
+
+        // 实时预览
+        function updatePreview() {
+            const content = markdownInput.value;
+            if (!content.trim()) {
+                previewArea.innerHTML = '<p style="color: var(--text-muted);">输入内容后将在此显示预览...</p>';
+                return;
+            }
+
+            try {
+                previewArea.innerHTML = marked.parse(content);
+            } catch (e) {
+                previewArea.innerHTML = `<p>${content.replace(/</g, '&lt;').replace(/\n/g, '<br>')}</p>`;
+            }
+        }
+
+        markdownInput.addEventListener('input', updatePreview);
+
+        // 示例按钮
+        document.querySelectorAll('.example-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const example = btn.dataset.example;
+                if (examples[example]) {
+                    markdownInput.value = examples[example];
+                    updatePreview();
+                    trackEvent('load_example', 'engagement', example); // 追踪示例使用
+                }
+            });
+        });
+
+        // 清空
+        clearBtn.addEventListener('click', () => {
+            markdownInput.value = '';
+            updatePreview();
+        });
+
+        // 拖拽文件
+        markdownInput.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            markdownInput.classList.add('dragging');
+        });
+
+        markdownInput.addEventListener('dragleave', () => {
+            markdownInput.classList.remove('dragging');
+        });
+
+        markdownInput.addEventListener('drop', (e) => {
+            e.preventDefault();
+            markdownInput.classList.remove('dragging');
+
+            const file = e.dataTransfer.files[0];
+            if (file && file.name.endsWith('.md')) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    markdownInput.value = event.target.result;
+                    updatePreview();
+                };
+                reader.readAsText(file);
+            }
+        });
+
+        // 导出Word
+        exportBtn.addEventListener('click', async () => {
+            const content = markdownInput.value.trim();
+            if (!content) {
+                alert('请先输入 Markdown 内容');
+                return;
+            }
+
+            trackEvent('click_export', 'conversion', 'export_button'); // 追踪导出按钮点击
+
+            exportBtn.disabled = true;
+            exportBtn.innerHTML = '<div class="spinner"></div> 处理中...';
+
+            try {
+                // 使用 converter.js 中的核心导出函数
+                // 注意：convertAndDownload 是 converter.js 暴露的全局函数
+                // 默认文件名为 MD2Word_日期.docx
+                const date = new Date().toISOString().slice(0, 10);
+                await convertAndDownload(content, `MD2Word_${date}.docx`);
+                trackEvent('export_success', 'conversion', 'word_downloaded'); // 追踪导出成功
+            } catch (error) {
+                console.error('导出失败:', error);
+                alert('导出失败: ' + error.message);
+                trackEvent('export_error', 'conversion', 'export_failed', 0); // 追踪导出失败
+            } finally {
+                exportBtn.disabled = false;
+                exportBtn.innerHTML = '⬇️ 导出 Word';
+            }
+        });
+
+        /* 已移除旧的内联函数，现在统一使用 lib/converter.js 中的逻辑 */
+
+
+        // 加载示例
+        markdownInput.value = examples.basic;
+        updatePreview();
+
+        // ============== 设置面板逻辑 ==============
+        const settingsToggle = document.getElementById('settingsToggle');
+        const settingsPanel = document.getElementById('settingsPanel');
+        const webSettings = {
+            preserveHeadingStyle: document.getElementById('webSettingPreserveHeadingStyle'),
+            preserveBold: document.getElementById('webSettingPreserveBold'),
+            preserveItalic: document.getElementById('webSettingPreserveItalic'),
+            removeExtraSpaces: document.getElementById('webSettingRemoveExtraSpaces'),
+            blockquoteItalic: document.getElementById('webSettingBlockquoteItalic')
+        };
+
+        // 设置面板切换（添加安全检查）
+        if (settingsToggle && settingsPanel) {
+            settingsToggle.addEventListener('click', () => {
+                settingsPanel.style.display = settingsPanel.style.display === 'none' ? 'block' : 'none';
+            });
+        } else {
+            console.warn('[Settings] 设置面板元素未找到');
+        }
+
+        // 加载保存的设置
+        function loadWebSettings() {
+            try {
+                const stored = localStorage.getItem('aitowords_settings');
+                if (stored) {
+                    const s = JSON.parse(stored);
+                    if (webSettings.preserveHeadingStyle) webSettings.preserveHeadingStyle.checked = s.preserveHeadingStyle ?? true;
+                    if (webSettings.preserveBold) webSettings.preserveBold.checked = s.preserveBold ?? true;
+                    if (webSettings.preserveItalic) webSettings.preserveItalic.checked = s.preserveItalic ?? true;
+                    if (webSettings.removeExtraSpaces) webSettings.removeExtraSpaces.checked = s.removeExtraSpaces ?? false;
+                    if (webSettings.blockquoteItalic) webSettings.blockquoteItalic.checked = s.blockquoteItalic ?? true;
+                }
+            } catch (e) { console.warn('Failed to load settings', e); }
+        }
+
+        function saveWebSettings() {
+            const settings = {
+                preserveHeadingStyle: webSettings.preserveHeadingStyle?.checked ?? true,
+                preserveBold: webSettings.preserveBold?.checked ?? true,
+                preserveItalic: webSettings.preserveItalic?.checked ?? true,
+                removeExtraSpaces: webSettings.removeExtraSpaces?.checked ?? false,
+                blockquoteItalic: webSettings.blockquoteItalic?.checked ?? true,
+                blockquoteColor: webSettings.blockquoteItalic?.checked ? '666666' : ''
+            };
+            if (window.saveConvertSettings) window.saveConvertSettings(settings);
+        }
+
+        // 绑定设置变更事件
+        Object.values(webSettings).forEach(el => {
+            if (el) el.addEventListener('change', saveWebSettings);
+        });
+
+        loadWebSettings();
+    </script>
+
+    <!-- Cookie 同意横幅 -->
+    <div id="cookieConsent" style="
+        display: none;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
+        background: #1e293b;
+        color: #e2e8f0;
+        padding: 16px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+        box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+        font-family: 'Inter', sans-serif;
+        font-size: 14px;
+    ">
+        <div style="flex: 1; min-width: 240px; line-height: 1.6;">
+            🍪 <span id="cookieText">本网站使用 Cookie 提供广告和分析服务。继续使用即表示您同意我们的 </span>
+            <a href="privacy.html" id="cookiePrivacyLink" style="color: #818cf8; text-decoration: underline;">隐私政策</a>。
+        </div>
+        <div style="display: flex; gap: 10px; flex-shrink: 0;">
+            <button onclick="declineCookies()" style="
+                padding: 8px 16px;
+                border: 1px solid #475569;
+                background: transparent;
+                color: #94a3b8;
+                border-radius: 8px;
+                cursor: pointer;
+                font-size: 13px;
+                font-family: 'Inter', sans-serif;
+            " id="cookieDeclineBtn">仅必要</button>
+            <button onclick="acceptCookies()" style="
+                padding: 8px 20px;
+                border: none;
+                background: linear-gradient(135deg, #4f46e5, #7c3aed);
+                color: white;
+                border-radius: 8px;
+                cursor: pointer;
+                font-size: 13px;
+                font-weight: 600;
+                font-family: 'Inter', sans-serif;
+            " id="cookieAcceptBtn">接受全部</button>
+        </div>
+    </div>
+    <script>
+        (function () {
+            var consent = localStorage.getItem('cookieConsent');
+            if (!consent) {
+                document.getElementById('cookieConsent').style.display = 'flex';
+            }
+        })();
+
+        function acceptCookies() {
+            localStorage.setItem('cookieConsent', 'accepted');
+            document.getElementById('cookieConsent').style.display = 'none';
+        }
+
+        function declineCookies() {
+            localStorage.setItem('cookieConsent', 'declined');
+            document.getElementById('cookieConsent').style.display = 'none';
+        }
+
+        // i18n 支持（在 i18n.js 加载后更新文本）
+        document.addEventListener('DOMContentLoaded', function () {
+            // 动态生成版本号（基于文档最后修改时间）
+            var versionBadge = document.getElementById('versionBadge');
+            if (versionBadge) {
+                var lastModified = new Date(document.lastModified);
+                var version = 'v' + lastModified.getFullYear() +
+                    String(lastModified.getMonth() + 1).padStart(2, '0') +
+                    String(lastModified.getDate()).padStart(2, '0') +
+                    String(lastModified.getHours()).padStart(2, '0') +
+                    String(lastModified.getMinutes()).padStart(2, '0');
+                versionBadge.textContent = version;
+            }
+
+            // 安全的语言切换函数
+            window.toggleLanguage = function() {
+                if (window.i18n && typeof window.i18n.toggle === 'function') {
+                    window.i18n.toggle();
+                    console.log('[i18n] 语言已切换到:', window.i18n.lang);
+                } else {
+                    console.error('[i18n] i18n 对象未初始化');
+                }
+            };
+
+            var lang = localStorage.getItem('aitowords_lang') || 'zh';
+            if (lang === 'en') {
+                var t = document.getElementById('cookieText');
+                var p = document.getElementById('cookiePrivacyLink');
+                var a = document.getElementById('cookieAcceptBtn');
+                var d = document.getElementById('cookieDeclineBtn');
+                if (t) t.textContent = 'This site uses cookies for ads and analytics. By continuing you agree to our ';
+                if (p) p.textContent = 'Privacy Policy';
+                if (a) a.textContent = 'Accept All';
+                if (d) d.textContent = 'Essential Only';
+            }
+        });
+    </script>
+    <script src="scripts/share.js"></script>
+    <script src="scripts/content-search.js"></script>
+</body>
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-71C191VNS7"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-71C191VNS7');
+
+    // GA 事件追踪辅助函数
+    function trackEvent(action, category, label, value) {
+        if (typeof gtag !== 'undefined') {
+            gtag('event', action, {
+                'event_category': category,
+                'event_label': label,
+                'value': value
+            });
+        }
+    }
+
+    // 追踪用户首次输入
+    let hasTrackedInput = false;
+    function trackFirstInput() {
+        if (!hasTrackedInput) {
+            trackEvent('first_input', 'engagement', 'user_started_typing');
+            hasTrackedInput = true;
+        }
+    }
+</script>
+
+</html>

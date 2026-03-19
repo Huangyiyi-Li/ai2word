@@ -1058,7 +1058,7 @@ async function convertAndDownload(content, filename) {
     window._mathPlaceholders = {};
 
     const docxLib = await loadDocxLib();
-    const { Document, Packer, Paragraph, TextRun, HeadingLevel, Table, TableRow, TableCell,
+    const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell,
         WidthType, BorderStyle, ImageRun, Math: DocxMath, MathRun, FootnoteReferenceRun, ExternalHyperlink } = docxLib;
 
     // 如果内容是HTML，先转为Markdown
@@ -1088,44 +1088,23 @@ async function convertAndDownload(content, filename) {
     for (const el of elements) {
         switch (el.type) {
             case 'heading':
-                // 处理标题中可能包含的 Markdown 内联样式（如 **粗体**、*斜体* 等）
                 const headingContent = settings.removeExtraSpaces ? cleanExtraSpaces(el.content) : el.content;
-                const headingHasStyle = /\*\*|\*|~~|`|\[.+?\]\(.+?\)/.test(headingContent);
-                if (headingHasStyle && settings.preserveHeadingStyle) {
-                    // 解析内联样式
-                    children.push(new Paragraph({
-                        children: parseTextStyles(headingContent, docxLib, settings),
-                        heading: [
-                            HeadingLevel.HEADING_1,
-                            HeadingLevel.HEADING_2,
-                            HeadingLevel.HEADING_3,
-                            HeadingLevel.HEADING_4,
-                            HeadingLevel.HEADING_5,
-                            HeadingLevel.HEADING_6
-                        ][el.level - 1],
-                        spacing: { before: 240, after: 120 }
-                    }));
-                } else {
-                    // 纯文本标题（去除 Markdown 标记）
-                    const cleanTitle = headingContent
-                        .replace(/\*\*(.+?)\*\*/g, '$1')
-                        .replace(/\*(.+?)\*/g, '$1')
-                        .replace(/~~(.+?)~~/g, '$1')
-                        .replace(/`(.+?)`/g, '$1')
-                        .replace(/\[(.+?)\]\(.+?\)/g, '$1');
-                    children.push(new Paragraph({
-                        text: cleanTitle,
-                        heading: [
-                            HeadingLevel.HEADING_1,
-                            HeadingLevel.HEADING_2,
-                            HeadingLevel.HEADING_3,
-                            HeadingLevel.HEADING_4,
-                            HeadingLevel.HEADING_5,
-                            HeadingLevel.HEADING_6
-                        ][el.level - 1],
-                        spacing: { before: 240, after: 120 }
-                    }));
-                }
+                const headingLevelIndex = el.level - 1;
+                const fontSizes = [44, 36, 30, 26, 22, 20]; // 对应 H1-H6 的字号（半点单位）
+
+                children.push(new Paragraph({
+                    children: [new TextRun({
+                        text: headingContent,
+                        color: '000000',       // 强制黑色
+                        bold: true,             // 标题加粗
+                        size: fontSizes[headingLevelIndex] * 2  // 字号
+                    })],
+                    // 不使用内置 heading 样式，避免蓝色默认颜色
+                    spacing: {
+                        before: 240,
+                        after: 120
+                    }
+                }));
                 break;
 
             case 'paragraph':
