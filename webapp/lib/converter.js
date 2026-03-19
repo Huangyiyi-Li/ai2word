@@ -980,6 +980,125 @@ async function postProcessDocx(docxBlob) {
 
         zip.file('word/document.xml', documentXml);
 
+        // ====== 修复 styles.xml 中标题样式的蓝色问题 ======
+        try {
+            const stylesFile = zip.file('word/styles.xml');
+            if (stylesFile) {
+                let stylesXml = await stylesFile.async('string');
+
+                // 调试: 输出修复前的 Heading 样式片段
+                const headingDebugBefore = stylesXml.match(/<w:style[^>]*?styleId="Heading1"[\s\S]*?<\/w:style>/i);
+                if (headingDebugBefore) {
+                    console.log('[MD2Word] 修复前 Heading1 样式:', headingDebugBefore[0].substring(0, 500));
+                }
+
+                // 通用 w:color 匹配模式 — 同时匹配自闭合和非自闭合形式:
+                //   <w:color w:val="xxx" w:themeColor="yyy"/>       (自闭合)
+                //   <w:color w:val="xxx" w:themeColor="yyy">        (仅开标签)
+                //   <w:color w:val="xxx" w:themeColor="yyy"></w:color>  (开+闭)
+                const colorTagRegex = /<w:color\b[^>]*\/?>\s*(<\/w:color\s*>)?/gi;
+
+                // 步骤1: 全局 — 将 styles.xml 中所有包含 themeColor 的 w:color 替换为黑色
+                stylesXml = stylesXml.replace(
+                    /<w:color\b[^>]*?w:themeColor\b[^>]*\/?>\s*(<\/w:color\s*>)?/gi,
+                    '<w:color w:val="000000"/>'
+                );
+
+                // 步骤2: 找到所有 Heading 样式块，将其中所有 w:color 强制改为黑色
+                stylesXml = stylesXml.replace(
+                    /(<w:style\b[^>]*?w:styleId="(?:Heading\d|Title|Subtitle)[^"]*"[\s\S]*?<\/w:style>)/gi,
+                    function(styleBlock) {
+                        let fixed = styleBlock.replace(colorTagRegex, '<w:color w:val="000000"/>');
+                        // 如果替换后仍然没有 w:color，并且有 w:rPr，则插入一个
+                        if (/<w:rPr\b/i.test(fixed) && !/<w:color\b/i.test(fixed)) {
+                            fixed = fixed.replace(/(<w:rPr\b[^>]*>)/i, '$1<w:color w:val="000000"/>');
+                        } else if (!/<w:rPr\b/i.test(fixed)) {
+                            // 连 rPr 都没有的话
+                            fixed = fixed.replace(/<\/w:style>/i, '<w:rPr><w:color w:val="000000"/></w:rPr></w:style>');
+                        }
+                        return fixed;
+                    }
+                );
+
+                // 步骤3: 匹配 basedOn Heading 的派生样式
+                stylesXml = stylesXml.replace(
+                    /(<w:style\b[^>]*>[\s\S]*?<w:basedOn\b[^>]*w:val="(?:Heading\d|Title|Subtitle)"[^>]*\/?>\s*(?:<\/w:basedOn\s*>)?[\s\S]*?<\/w:style>)/gi,
+                    function(styleBlock) {
+                        let fixed = styleBlock.replace(colorTagRegex, '<w:color w:val="000000"/>');
+                        if (/<w:rPr\b/i.test(fixed) && !/<w:color\b/i.test(fixed)) {
+                            fixed = fixed.replace(/(<w:rPr\b[^>]*>)/i, '$1<w:color w:val="000000"/>');
+                        } else if (!/<w:rPr\b/i.test(fixed)) {
+                            fixed = fixed.replace(/<\/w:style>/i, '<w:rPr><w:color w:val="000000"/></w:rPr></w:style>');
+                        }
+                        return fixed;
+                    }
+                );
+
+                // 步骤4: 安全网 — 将所有蓝色系 w:color 全部改为黑色
+                // 匹配所有形式的 w:color 标签（自闭合、非自闭合）
+                stylesXml = stylesXml.replace(
+                    /<w:color\b([^>]*)\/?>\s*(<\/w:color\s*>)?/gi,
+                    function(match, attrs) {
+                        // 提取 w:val 的值
+                        const valMatch = attrs.match(/w:val="([0-9a-fA-F]{6})"/);
+                        if (!valMatch) return '<w:color w:val="000000"/>';  // 没有 val 属性，设为黑色
+                        const val = valMatch[1].toUpperCase();
+                        if (val === '000000') return '<w:color w:val="000000"/>';
+                        if (val === 'FFFFFF') return match;  // 保留白色
+                        // 检查是否包含 themeColor（可能前面步骤已清理，但做兜底）
+                        if (/w:themeColor/i.test(attrs)) return '<w:color w:val="000000"/>';
+                        // RGB 蓝色系检测
+                        const r = parseInt(val.substr(0, 2), 16);
+                        const g = parseInt(val.substr(2, 2), 16);
+                        const b = parseInt(val.substr(4, 2), 16);
+                        if (b > r && b > g && b > 80) return '<w:color w:val="000000"/>';
+                        if (b > 100 && r < 100 && g < 130) return '<w:color w:val="000000"/>';
+                        return match;
+                    }
+                );
+
+                // 调试: 输出修复后的 Heading 样式片段
+                const headingDebugAfter = stylesXml.match(/<w:style[^>]*?styleId="Heading1"[\s\S]*?<\/w:style>/i);
+                if (headingDebugAfter) {
+                    console.log('[MD2Word] 修复后 Heading1 样式:', headingDebugAfter[0].substring(0, 500));
+                }
+
+                zip.file('word/styles.xml', stylesXml);
+                console.log('[MD2Word] ✓ styles.xml 标题颜色已修复为黑色');
+            }
+        } catch (styleErr) {
+            console.warn('[MD2Word] ⚠ styles.xml 处理失败:', styleErr);
+        }
+
+        // ====== 修复 theme1.xml 中可能影响标题的主题色 ======
+        try {
+            const themeFile = zip.file('word/theme/theme1.xml');
+            if (themeFile) {
+                let themeXml = await themeFile.async('string');
+
+                // 将所有 accent 颜色改为黑色（直接替换避免转义问题）
+                themeXml = themeXml.replace(/(<a:accent1>[\s\S]*?<a:srgbClr\s+val=")[^"]*(")/g, '$1000000$2');
+                themeXml = themeXml.replace(/(<a:accent2>[\s\S]*?<a:srgbClr\s+val=")[^"]*(")/g, '$1000000$2');
+                themeXml = themeXml.replace(/(<a:accent3>[\s\S]*?<a:srgbClr\s+val=")[^"]*(")/g, '$1000000$2');
+                themeXml = themeXml.replace(/(<a:accent4>[\s\S]*?<a:srgbClr\s+val=")[^"]*(")/g, '$1000000$2');
+                themeXml = themeXml.replace(/(<a:accent5>[\s\S]*?<a:srgbClr\s+val=")[^"]*(")/g, '$1000000$2');
+                themeXml = themeXml.replace(/(<a:accent6>[\s\S]*?<a:srgbClr\s+val=")[^"]*(")/g, '$1000000$2');
+
+                zip.file('word/theme/theme1.xml', themeXml);
+                console.log('[MD2Word] ✓ theme1.xml 所有 accent 颜色已修复为黑色');
+            }
+        } catch (themeErr) {
+            console.warn('[MD2Word] ⚠ theme1.xml 处理失败:', themeErr);
+        }
+
+        // ====== 确保 document.xml 中的标题文字颜色不受主题影响 ======
+        documentXml = await zip.file('word/document.xml').async('string');
+        documentXml = documentXml.replace(
+            /<w:color\b[^>]*?w:themeColor\b[^>]*\/?>\s*(<\/w:color\s*>)?/gi,
+            '<w:color w:val="000000"/>'
+        );
+        zip.file('word/document.xml', documentXml);
+
         // 清理占位符缓存
         window._mathPlaceholders = {};
 
@@ -1030,21 +1149,27 @@ async function convertAndDownload(content, filename) {
     for (const el of elements) {
         switch (el.type) {
             case 'heading':
-                const headingLevelIndex = el.level - 1;
-                const fontSizes = [44, 36, 30, 26, 22, 20]; // 对应 H1-H6 的字号（半点单位）
+                const headingLevelMap = [
+                    HeadingLevel.HEADING_1,
+                    HeadingLevel.HEADING_2,
+                    HeadingLevel.HEADING_3,
+                    HeadingLevel.HEADING_4,
+                    HeadingLevel.HEADING_5,
+                    HeadingLevel.HEADING_6
+                ];
+                const hLevel = headingLevelMap[el.level - 1] || HeadingLevel.HEADING_6;
+
+                let hRuns = [];
+                // 如果标题中包含可能的富文本标记，则使用富文本解析
+                if (el.content.includes('<') || el.content.includes('$') || el.content.includes('[')) {
+                    hRuns = await parseInlineContent(el.content, docxLib);
+                } else {
+                    hRuns = parseTextStyles(el.content, docxLib);
+                }
 
                 children.push(new Paragraph({
-                    children: [new TextRun({
-                        text: el.content,
-                        color: '000000',       // 强制黑色
-                        bold: true,             // 标题加粗
-                        size: fontSizes[headingLevelIndex] * 2  // 字号
-                    })],
-                    // 不使用内置 heading 样式，避免蓝色默认颜色
-                    spacing: {
-                        before: 240,
-                        after: 120
-                    }
+                    children: hRuns,
+                    heading: hLevel
                 }));
                 break;
 
@@ -1214,6 +1339,35 @@ async function convertAndDownload(content, filename) {
 
     // 创建文档
     const doc = new Document({
+        // 自定义标题样式定义，覆盖默认蓝色
+        styles: {
+            default: {
+                heading1: {
+                    run: { color: '000000', bold: true, size: 44 }
+                },
+                heading2: {
+                    run: { color: '000000', bold: true, size: 36 }
+                },
+                heading3: {
+                    run: { color: '000000', bold: true, size: 30 }
+                },
+                heading4: {
+                    run: { color: '000000', bold: true, size: 26 }
+                },
+                heading5: {
+                    run: { color: '000000', bold: true, size: 22 }
+                },
+                heading6: {
+                    run: { color: '000000', bold: true, size: 20 }
+                },
+                title: {
+                    run: { color: '000000' }
+                },
+                listParagraph: {
+                    run: { color: '000000' }
+                }
+            }
+        },
         footnotes: Object.fromEntries(
             Object.values(footnoteMapping).map(m => [
                 m.numId,

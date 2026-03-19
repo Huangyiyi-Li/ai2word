@@ -1,6 +1,12 @@
 # AiToWords - AI对话无损导出Word工具
 
-将 ChatGPT、Claude 等 AI 对话内容导出为 Word 文档，支持 Markdown、LaTeX 公式、Mermaid 图表、代码高亮。
+[![AI Guidelines](https://img.shields.io/badge/AI-Guidelines-blue.svg)](./AI_GUIDELINES.md)
+[![Changelog](https://img.shields.io/badge/Changelog-Updated-green.svg)](./CHANGELOG.md)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+
+将 ChatGPT、Claude 等 AI 对话内容无损全格式导出为 Word 文档，支持 Markdown、LaTeX 公式、Mermaid 图表、原生代码高亮以及大纲结构恢复。
+
+> **🤖 提示：** 如果你是 AI 或是协作者打算在此仓库继续开发，请务必先仔细阅读 [AI 指南 (`AI_GUIDELINES.md`)](./AI_GUIDELINES.md)。
 
 ## ✨ 特性
 

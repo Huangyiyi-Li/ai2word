@@ -1,21 +1,65 @@
-# Changelog
+# 更新日志
 
-All notable changes to this project will be documented in this file.
+本项目的所有重大更改将记录在此文件中。
+
+本项目采用 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.0.0/) 规范进行版本变更管理。
 
 ## [Unreleased]
 
-### Added
+## [v20260319] - 2026-03-19
 
-- **SEO Optimization**:
-  - Added `webapp/robots.txt` and `webapp/sitemap.xml`.
-  - Added `canonical` tags to `index.html` and `install.html`.
-  - Added JSON-LD Schema (`SoftwareApplication`, `FAQPage`) to `index.html`.
-  - Added JSON-LD Schema (`TechArticle`) to `install.html`.
-  - Added "Common Questions" (FAQ) section to `index.html`.
-- **Internationalization**:
-  - Added English and Chinese translations for the new FAQ section in `lib/i18n.js`.
+### 新增 (Added)
+- 实现基于双独立页面（`index.html`和`index-en.html`）的结构级国际化。
+- 增加部分针对英语受众优化的 Meta 标签。
+- 补充 SEO 优化功能与针对性项目文档（如添加 robots.txt, sitemap.xml，结构化 Schema 数据）。
 
-### Fixed
+### 修复 (Fixed)
+- 彻底修复导出 Word 文件中段落和标题出现意外蓝色样式的错误，通过覆写底层样式文件解决。
+- 恢复了导出 Word 文档的系统标题大纲属性（不再是伪标题），支持 Word 导航窗格。
+- 修复了版本号动态生成与切换语言时不加载内容的缺陷。
+- 修复 i18n 初始化机制中可能出现的加载或识别异常。
 
-- **Visuals**:
-  - Fixed visibility issue for the FAQ section by moving it into a white card container (`.faq-container`) to ensure text contrast against the background.
+## [v20260316] - 2026-03-16
+
+### 新增 (Added)
+- 发布及更新浏览器插件离线包至 v1.2.0。
+- 新增长内容和长对话内容直接的搜索定位功能（包括网页版与插件端）。
+- 添加 “成就系统” —— 基于本地的高级游戏化交互能力。
+- 全面落实 PWA 服务 —— 支持离线使用和本地主屏快速启动。
+- 添加主流社交媒体的内容一键分享功能。
+- 新增国内多家流行 AI 平台（文心一言，通义千问，Kimi，豆包，元宝）的对话导出详细图文教程。
+- 支持历史记录和基础对话模板系统，实现大批量和自动化的历史转换追溯能力。
+
+### 修复 (Fixed)
+- 修正扩展程序 manifest.json 中格式化错误与识别。
+- 修复了网页端关于 Word 文档样式导出的部分格式化异常。
+- 性能与移动端响应式体验的优化以及页面 Bug 修复。
+
+## [v20260306] - 2026-03-06
+
+### 新增 (Added)
+- 引入 Google AdSense 隐私合规性提示（增加 Cookie 授权许可横幅）。
+- 新增项目统一联络页面，更新官方支持与开发者联络邮箱。
+
+## [v20260225] - 2026-02-25
+
+### 新增 (Added)
+- 增加导出文档样式和格式细节的个性化自定义设置面板。
+- 新增对于 Google Gemini 与 Monica 等其它流行 AI 的兼容支持。
+
+## [v20260210] - 2026-02-10
+
+### 新增 (Added)
+- 面向全站的持续 SEO 更新（新设隐私条款，sitemap 推送覆盖等）。
+
+## [v20260204_06] - 2026-02-04 至 2026-02-06
+
+### 新增 (Added)
+- 正式将项目更名为 **AiToWords** 并迎来 v1.1.0 架构版发布，首推原生脚注导出以及丰富的高级文本块还原支持。
+- 全量接入 i18n 辅助多语言国际化系统。
+- 接入 Google Analytics (GA4) 以帮助完善产品交互体验追踪。
+- 商业变现启动，引入 Google AdSense 脚本以及对应的 `ads.txt` 校验策略。
+- 独立出一个专用展示“如何安装浏览器插件”的快速引导页面。
+
+### 修复 (Fixed)
+- 大量样式、视觉漏洞修复以及常规的 index.html Artifact 展示修复。
