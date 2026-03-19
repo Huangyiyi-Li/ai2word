@@ -892,6 +892,10 @@ function parseTextStyles(text, docx) {
         } else {
             // 纯文本
             const options = { text: plainText, ...currentStyles };
+            // 确保默认颜色为黑色（除非是链接）
+            if (!options.color && styleType !== 'link') {
+                options.color = '000000';
+            }
             runs.push(new TextRun(options));
         }
     }
@@ -1027,7 +1031,10 @@ async function convertAndDownload(content, filename) {
         switch (el.type) {
             case 'heading':
                 children.push(new Paragraph({
-                    text: el.content,
+                    children: [new TextRun({
+                        text: el.content,
+                        color: '000000' // 设置为黑色
+                    })],
                     heading: [
                         HeadingLevel.HEADING_1,
                         HeadingLevel.HEADING_2,

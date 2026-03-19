@@ -561,13 +561,13 @@
             <a href="#" class="logo">
                 <span>📄</span>
                 AiToWords
-                <span id="versionBadge" style="font-size: 11px; color: var(--text-secondary); margin-left: 8px; font-weight: 500; background: var(--bg-secondary); padding: 2px 8px; border-radius: 4px;">v202603190924</span>
+                <span id="versionBadge" style="font-size: 11px; color: var(--text-secondary); margin-left: 8px; font-weight: 500; background: var(--bg-secondary); padding: 2px 8px; border-radius: 4px;">加载中...</span>
             </a>
             <nav class="nav">
                 <a href="#examples" data-i18n="examples">示例</a>
                 <a href="https://github.com/Huangyiyi-Li/ai2word" target="_blank">GitHub</a>
                 <button class="btn btn-secondary" style="margin-right:8px; padding: 12px;"
-                    onclick="i18n.toggle()">🌐</button>
+                    onclick="toggleLanguage()">🌐</button>
                 <a href="install.html" class="btn btn-secondary" id="installExtension" data-i18n="installExt">
                     🔌 安装插件
                 </a>
@@ -1024,10 +1024,14 @@ print(fibonacci(10))
             blockquoteItalic: document.getElementById('webSettingBlockquoteItalic')
         };
 
-        // 设置面板切换
-        settingsToggle.addEventListener('click', () => {
-            settingsPanel.style.display = settingsPanel.style.display === 'none' ? 'block' : 'none';
-        });
+        // 设置面板切换（添加安全检查）
+        if (settingsToggle && settingsPanel) {
+            settingsToggle.addEventListener('click', () => {
+                settingsPanel.style.display = settingsPanel.style.display === 'none' ? 'block' : 'none';
+            });
+        } else {
+            console.warn('[Settings] 设置面板元素未找到');
+        }
 
         // 加载保存的设置
         function loadWebSettings() {
@@ -1132,6 +1136,38 @@ print(fibonacci(10))
 
         // i18n 支持（在 i18n.js 加载后更新文本）
         document.addEventListener('DOMContentLoaded', function () {
+            // 动态生成版本号（基于文档最后修改时间）
+            var versionBadge = document.getElementById('versionBadge');
+            if (versionBadge) {
+                var lastModified = new Date(document.lastModified);
+                var version = 'v' + lastModified.getFullYear() +
+                    String(lastModified.getMonth() + 1).padStart(2, '0') +
+                    String(lastModified.getDate()).padStart(2, '0') +
+                    String(lastModified.getHours()).padStart(2, '0') +
+                    String(lastModified.getMinutes()).padStart(2, '0');
+                versionBadge.textContent = version;
+            }
+
+            // 安全的语言切换函数
+            window.toggleLanguage = function() {
+                if (window.i18n && typeof window.i18n.toggle === 'function') {
+                    window.i18n.toggle();
+                } else {
+                    console.warn('[i18n] i18n 对象未初始化，等待加载...');
+                    // 如果 i18n 还未加载完成，等待加载后再执行
+                    var checkI18n = setInterval(function() {
+                        if (window.i18n && typeof window.i18n.toggle === 'function') {
+                            clearInterval(checkI18n);
+                            window.i18n.toggle();
+                        }
+                    }, 100);
+                    // 最多等待 5 秒
+                    setTimeout(function() {
+                        clearInterval(checkI18n);
+                    }, 5000);
+                }
+            };
+
             var lang = localStorage.getItem('lang') || 'zh';
             if (lang === 'en') {
                 var t = document.getElementById('cookieText');
