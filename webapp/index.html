@@ -1152,23 +1152,13 @@ print(fibonacci(10))
             window.toggleLanguage = function() {
                 if (window.i18n && typeof window.i18n.toggle === 'function') {
                     window.i18n.toggle();
+                    console.log('[i18n] 语言已切换到:', window.i18n.lang);
                 } else {
-                    console.warn('[i18n] i18n 对象未初始化，等待加载...');
-                    // 如果 i18n 还未加载完成，等待加载后再执行
-                    var checkI18n = setInterval(function() {
-                        if (window.i18n && typeof window.i18n.toggle === 'function') {
-                            clearInterval(checkI18n);
-                            window.i18n.toggle();
-                        }
-                    }, 100);
-                    // 最多等待 5 秒
-                    setTimeout(function() {
-                        clearInterval(checkI18n);
-                    }, 5000);
+                    console.error('[i18n] i18n 对象未初始化');
                 }
             };
 
-            var lang = localStorage.getItem('lang') || 'zh';
+            var lang = localStorage.getItem('aitowords_lang') || 'zh';
             if (lang === 'en') {
                 var t = document.getElementById('cookieText');
                 var p = document.getElementById('cookiePrivacyLink');

@@ -76,13 +76,25 @@ const i18nData = {
 class I18nManager {
     constructor() {
         this.lang = localStorage.getItem('aitowords_lang') || (navigator.language.startsWith('zh') ? 'zh' : 'en');
-        this.updatePage();
+        this.isReady = false;
+        // 延迟更新，确保 DOM 已加载
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                this.updatePage();
+                this.isReady = true;
+            });
+        } else {
+            this.updatePage();
+            this.isReady = true;
+        }
     }
 
     setLang(lang) {
         this.lang = lang;
         localStorage.setItem('aitowords_lang', lang);
         this.updatePage();
+        // 触发自定义事件，通知其他组件语言已切换
+        window.dispatchEvent(new CustomEvent('languageChange', { detail: { lang: this.lang } }));
     }
 
     toggle() {
@@ -90,7 +102,11 @@ class I18nManager {
     }
 
     getText(key, params = {}) {
-        let text = i18nData[this.lang][key] || key;
+        if (!i18nData[this.lang] || !i18nData[this.lang][key]) {
+            console.warn(`[i18n] Missing translation for key: ${key} in lang: ${this.lang}`);
+            return key;
+        }
+        let text = i18nData[this.lang][key];
         for (const [k, v] of Object.entries(params)) {
             text = text.replace(`{${k}}`, v);
         }
@@ -102,11 +118,12 @@ class I18nManager {
 
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
-            if (i18nData[this.lang][key]) {
+            const translation = this.getText(key);
+            if (translation && translation !== key) {
                 if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                    el.placeholder = i18nData[this.lang][key];
+                    el.placeholder = translation;
                 } else {
-                    el.textContent = i18nData[this.lang][key];
+                    el.textContent = translation;
                 }
             }
         });
