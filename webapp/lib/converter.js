@@ -1030,25 +1030,21 @@ async function convertAndDownload(content, filename) {
     for (const el of elements) {
         switch (el.type) {
             case 'heading':
-                const headingLevel = [
-                    HeadingLevel.HEADING_1,
-                    HeadingLevel.HEADING_2,
-                    HeadingLevel.HEADING_3,
-                    HeadingLevel.HEADING_4,
-                    HeadingLevel.HEADING_5,
-                    HeadingLevel.HEADING_6
-                ][el.level - 1];
+                const headingLevelIndex = el.level - 1;
+                const fontSizes = [44, 36, 30, 26, 22, 20]; // 对应 H1-H6 的字号（半点单位）
 
-                // 不使用内置 heading 样式，而是自定义样式以避免蓝色
-                const fontSizes = [44, 36, 30, 26, 22, 20]; // 对应 H1-H6 的字号
                 children.push(new Paragraph({
                     children: [new TextRun({
                         text: el.content,
-                        color: '000000',
-                        bold: true,
-                        size: fontSizes[el.level - 1] * 2 // docx 使用半点单位
+                        color: '000000',       // 强制黑色
+                        bold: true,             // 标题加粗
+                        size: fontSizes[headingLevelIndex] * 2  // 字号
                     })],
-                    spacing: { before: 240, after: 120 }
+                    // 不使用内置 heading 样式，避免蓝色默认颜色
+                    spacing: {
+                        before: 240,
+                        after: 120
+                    }
                 }));
                 break;
 

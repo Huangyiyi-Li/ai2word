@@ -77,15 +77,23 @@ class I18nManager {
     constructor() {
         this.lang = localStorage.getItem('aitowords_lang') || (navigator.language.startsWith('zh') ? 'zh' : 'en');
         this.isReady = false;
-        // 延迟更新，确保 DOM 已加载
+
+        // 立即更新页面（如果DOM已就绪）
         if (document.readyState === 'loading') {
+            // DOM还在加载中，等待DOMContentLoaded
             document.addEventListener('DOMContentLoaded', () => {
                 this.updatePage();
                 this.isReady = true;
+                console.log('[i18n] 初始化完成，当前语言:', this.lang);
             });
         } else {
-            this.updatePage();
-            this.isReady = true;
+            // DOM已经就绪，立即更新
+            // 使用 setTimeout 确保在其他脚本之后执行
+            setTimeout(() => {
+                this.updatePage();
+                this.isReady = true;
+                console.log('[i18n] 初始化完成，当前语言:', this.lang);
+            }, 0);
         }
     }
 
@@ -95,6 +103,7 @@ class I18nManager {
         this.updatePage();
         // 触发自定义事件，通知其他组件语言已切换
         window.dispatchEvent(new CustomEvent('languageChange', { detail: { lang: this.lang } }));
+        console.log('[i18n] 语言已切换到:', this.lang);
     }
 
     toggle() {
@@ -136,7 +145,5 @@ class I18nManager {
     }
 }
 
-// Auto-init if running in browser environment
-if (typeof window !== 'undefined') {
-    window.i18n = new I18nManager();
-}
+// 立即初始化
+window.i18n = new I18nManager();
