@@ -1,6 +1,6 @@
 /**
  * AiToWords 分享功能
- * 支持社交媒体分享、二维码生成、复制链接
+ * 支持社交媒体分享、复制链接
  */
 
 class ShareManager {
