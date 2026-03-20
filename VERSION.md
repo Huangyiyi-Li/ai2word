@@ -8,6 +8,13 @@
 
 ## 版本历史
 
+### v202603201545
+
+- SEO: 更新 sitemap.xml，添加所有27个页面
+- SEO: 新增多语言 hreflang 标签支持
+- SEO: 创建完整 SEO 优化方案文档 SEO_OPTIMIZATION.md
+- SEO: 修正 sitemap 重复条目，优化页面优先级
+
 ### v202603191758
 
 - 文档清理：删除16个冗余和过时文档

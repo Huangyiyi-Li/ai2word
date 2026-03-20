@@ -1,93 +1,159 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- 首页 -->
   <url>
-    <loc>https://www.aitowords.com/index.html</loc>
-    <lastmod>2026-02-05</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://www.aitowords.com/</loc>
+    <lastmod>2026-03-20</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.aitowords.com/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aitowords.com/index-en.html" />
   </url>
+
+  <!-- 英文首页 -->
+  <url>
+    <loc>https://www.aitowords.com/index-en.html</loc>
+    <lastmod>2026-03-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.aitowords.com/index-en.html" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.aitowords.com/" />
+  </url>
+
+  <!-- 插件安装指南 -->
   <url>
     <loc>https://www.aitowords.com/install.html</loc>
-    <lastmod>2026-02-05</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-03-20</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+
+  <!-- 隐私政策 -->
   <url>
     <loc>https://www.aitowords.com/privacy.html</loc>
-    <lastmod>2026-02-10</lastmod>
+    <loc>https://www.aitowords.com/privacy-en.html</loc>
+    <loc>https://www.aitowords.com/privacy-zh.html</loc>
+    <lastmod>2026-03-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
+
+  <!-- 联系我们 -->
   <url>
     <loc>https://www.aitowords.com/contact.html</loc>
-    <lastmod>2026-03-16</lastmod>
+    <loc>https://www.aitowords.com/contact-en.html</loc>
+    <loc>https://www.aitowords.com/contact-zh.html</loc>
+    <lastmod>2026-03-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
+
+  <!-- ChatGPT 导出页面 -->
   <url>
     <loc>https://www.aitowords.com/chatgpt-to-word.html</loc>
-    <lastmod>2026-03-16</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-03-20</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
-  <url>
-    <loc>https://www.aitowords.com/deepseek-to-word.html</loc>
-    <lastmod>2026-03-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.aitowords.com/latex-formula-word.html</loc>
-    <lastmod>2026-03-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
+
+  <!-- Claude 导出页面 -->
   <url>
     <loc>https://www.aitowords.com/claude-to-word.html</loc>
-    <lastmod>2026-03-16</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-03-20</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
+
+  <!-- DeepSeek 导出页面 -->
   <url>
-    <loc>https://www.aitowords.com/install.html</loc>
-    <lastmod>2026-03-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://www.aitowords.com/deepseek-to-word.html</loc>
+    <lastmod>2026-03-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
+
+  <!-- 豆包导出页面 -->
   <url>
     <loc>https://www.aitowords.com/doubao-to-word.html</loc>
-    <lastmod>2026-03-16</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-03-20</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
+
+  <!-- 元宝导出页面 -->
   <url>
     <loc>https://www.aitowords.com/yuanbao-to-word.html</loc>
-    <lastmod>2026-03-16</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-03-20</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
+
+  <!-- 文心一言导出页面 -->
   <url>
     <loc>https://www.aitowords.com/wenxin-to-word.html</loc>
-    <lastmod>2026-03-16</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-03-20</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
+
+  <!-- 通义千问导出页面 -->
   <url>
     <loc>https://www.aitowords.com/tongyi-to-word.html</loc>
-    <lastmod>2026-03-16</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-03-20</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
+
+  <!-- Kimi 导出页面 -->
   <url>
     <loc>https://www.aitowords.com/kimi-to-word.html</loc>
-    <lastmod>2026-03-16</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-03-20</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
+
+  <!-- LaTeX 公式导出页面 -->
+  <url>
+    <loc>https://www.aitowords.com/latex-formula-word.html</loc>
+    <lastmod>2026-03-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- 批量导出页面 -->
   <url>
     <loc>https://www.aitowords.com/batch-export.html</loc>
-    <lastmod>2026-03-16</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-03-20</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+
+  <!-- SEO 增强页面 -->
+  <url>
+    <loc>https://www.aitowords.com/seo-enhancement.html</loc>
+    <lastmod>2026-03-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- 404 页面 -->
+  <url>
+    <loc>https://www.aitowords.com/404.html</loc>
+    <loc>https://www.aitowords.com/404-en.html</loc>
+    <loc>https://www.aitowords.com/404-zh.html</loc>
+    <lastmod>2026-03-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- 离线页面 -->
+  <url>
+    <loc>https://www.aitowords.com/offline.html</loc>
+    <lastmod>2026-03-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
 </urlset>
